@@ -1182,4 +1182,394 @@
                     let statSources = [statsData, ...matchArchive.map(m => m.stats)];
 
                     statSources.forEach(source => {
-                        let p2m=0, p3m=0, p4m=0, pftm=0, pre
+                        let p2m=0, p3m=0, p4m=0, pftm=0, preb=0, past=0, pstl=0, pblk=0;
+                        Object.keys(source).forEach(k => {
+                            if (k.includes(player.id)) {
+                                const val = source[k];
+                                if (k.endsWith('_m2')) p2m += val;
+                                if (k.endsWith('_m3')) { p3m += val; m3 += val; }
+                                if (k.endsWith('_m4')) p4m += val;
+                                if (k.endsWith('_ftm')) pftm += val;
+                                if (k.endsWith('_reb')) preb += val;
+                                if (k.endsWith('_ast')) past += val;
+                                if (k.endsWith('_stl')) pstl += val;
+                                if (k.endsWith('_blk')) pblk += val;
+                            }
+                        });
+                        pts += (p2m * 2) + (p3m * 3) + (p4m * 4) + pftm;
+                        reb += preb; ast += past; stl += pstl; blk += pblk;
+                    });
+
+                    allPlayers.push({
+                        name: player.name,
+                        team: team.name,
+                        jersey: player.jersey,
+                        ptsAvg: pts / numGames,
+                        rebAvg: reb / numGames,
+                        astAvg: ast / numGames,
+                        stlAvg: stl / numGames,
+                        blkAvg: blk / numGames,
+                        m3Avg: m3 / numGames
+                    });
+                });
+            });
+
+            const makeLeaderTable = (title, key, unit) => {
+                const sorted = [...allPlayers].sort((a, b) => b[key] - a[key]).slice(0, 5);
+                let rows = "";
+                sorted.forEach((p, idx) => {
+                    rows += `<tr>
+                        <td><strong>#${idx + 1}</strong></td>
+                        <td class="player-col">${p.name} <span style="color:var(--text-muted); font-size:0.8rem;">(${p.team})</span></td>
+                        <td class="pts-cell">${p[key].toFixed(1)} ${unit}</td>
+                    </tr>`;
+                });
+                return `
+                    <div style="flex: 1; min-width: 280px; background:#0f172a; padding:12px; border-radius:10px; border:1px solid var(--border-color);">
+                        <h3 style="color:var(--accent-gold); margin-bottom:8px; font-size:1rem;">${title}</h3>
+                        <table class="stat-table">
+                            <thead><tr><th>Rank</th><th class="player-col">Player</th><th>Avg</th></tr></thead>
+                            <tbody>${rows || '<tr><td colspan="3">No stats recorded yet</td></tr>'}</tbody>
+                        </table>
+                    </div>
+                `;
+            };
+
+            container.innerHTML = `
+                <div style="display:flex; flex-wrap:wrap; gap:15px;">
+                    ${makeLeaderTable('🔥 Points Per Game (PPG)', 'ptsAvg', 'PTS')}
+                    ${makeLeaderTable('🏀 Rebounds Per Game (RPG)', 'rebAvg', 'REB')}
+                    ${makeLeaderTable('🎯 Assists Per Game (APG)', 'astAvg', 'AST')}
+                    ${makeLeaderTable(' Steals Per Game (SPG)', 'stlAvg', 'STL')}
+                    ${makeLeaderTable('🧱 Blocks Per Game (BPG)', 'blkAvg', 'BLK')}
+                    ${makeLeaderTable('☄️ 3-Pointers Made / Game', 'm3Avg', '3PM')}
+                </div>
+            `;
+        }
+
+        function makeStepper(prefix, pId, statKey) {
+            const key = `${prefix}_${pId}_${statKey}`;
+            if (!(key in statsData)) statsData[key] = 0;
+
+            return `
+                <div class="stepper-unit">
+                    <span class="stat-val" id="val_${key}">${statsData[key]}</span>
+                    <div class="step-btns">
+                        <button class="step-btn" onclick="stepStat('${prefix}', '${pId}', '${statKey}', 1)">▲</button>
+                        <button class="step-btn dn" onclick="stepStat('${prefix}', '${pId}', '${statKey}', -1)">▼</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function stepStat(prefix, pId, statKey, delta) {
+            const key = `${prefix}_${pId}_${statKey}`;
+            if (!(key in statsData)) statsData[key] = 0;
+            statsData[key] = Math.max(0, statsData[key] + delta);
+
+            if (delta > 0) {
+                if (statKey.endsWith('m2')) stepStat(prefix, pId, statKey.replace('m2', 'a2'), 1);
+                if (statKey.endsWith('m3')) stepStat(prefix, pId, statKey.replace('m3', 'a3'), 1);
+                if (statKey.endsWith('m4')) stepStat(prefix, pId, statKey.replace('m4', 'a4'), 1);
+                if (statKey.endsWith('ftm')) stepStat(prefix, pId, statKey.replace('ftm', 'fta'), 1);
+            }
+
+            const valEl = document.getElementById(`val_${key}`);
+            if (valEl) valEl.textContent = statsData[key];
+            updateRowAndTotals(prefix, pId);
+        }
+
+        function getStatVal(prefix, pId, statKey) {
+            return statsData[`${prefix}_${pId}_${statKey}`] || 0;
+        }
+
+        function updateRowAndTotals(prefix, pId) {
+            let m2 = 0, a2 = 0, m3 = 0, a3 = 0, m4 = 0, a4 = 0, ftm = 0, fta = 0;
+            ['q1', 'q2', 'q3', 'q4'].forEach(q => {
+                m2 += getStatVal(prefix, pId, `${q}_m2`);
+                a2 += getStatVal(prefix, pId, `${q}_a2`);
+                m3 += getStatVal(prefix, pId, `${q}_m3`);
+                a3 += getStatVal(prefix, pId, `${q}_a3`);
+                m4 += getStatVal(prefix, pId, `${q}_m4`);
+                a4 += getStatVal(prefix, pId, `${q}_a4`);
+                ftm += getStatVal(prefix, pId, `${q}_ftm`);
+                fta += getStatVal(prefix, pId, `${q}_fta`);
+            });
+
+            const pts = (m2 * 2) + (m3 * 3) + (m4 * 4) + ftm;
+            const ptsEl = document.getElementById(`pts_${prefix}_${pId}`);
+            if (ptsEl) ptsEl.textContent = pts;
+
+            calcTableTotals(prefix);
+        }
+
+        function buildStatTableHTML(teamKey, prefix) {
+            const team = teamsData[teamKey];
+            const activePlayers = team.roster.filter(p => p.active);
+            let rowsHTML = "";
+
+            if (activePlayers.length === 0) {
+                rowsHTML = `<tr><td colspan="25" style="padding:20px; color:var(--text-muted);">No active players selected. Enable players in roster view.</td></tr>`;
+            } else {
+                activePlayers.forEach(player => {
+                    const pId = player.id;
+                    const isChecked = selectedPlayerContext && selectedPlayerContext.pId === pId ? 'checked' : '';
+
+                    rowsHTML += `<tr id="row_${prefix}_${pId}">
+                        <td class="select-radio-cell">
+                            <input type="radio" name="activePlayerRadio" ${isChecked} onclick="selectPlayerRadio('${prefix}', '${pId}', '${player.name}')">
+                        </td>
+                        <td><strong>${player.jersey}</strong></td>
+                        <td class="player-col">${player.name}</td>`;
+
+                    const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
+                    quarters.forEach(q => {
+                        const qLower = q.toLowerCase();
+                        if (currentQuarterFilter === 'ALL' || currentQuarterFilter === q) {
+                            rowsHTML += `
+                                <td>${makeStepper(prefix, pId, `${qLower}_m2`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a2`)}</td>
+                                <td>${makeStepper(prefix, pId, `${qLower}_m3`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a3`)}</td>
+                                <td>${makeStepper(prefix, pId, `${qLower}_m4`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a4`)}</td>
+                                <td>${makeStepper(prefix, pId, `${qLower}_ftm`)}</td><td>${makeStepper(prefix, pId, `${qLower}_fta`)}</td>
+                            `;
+                        }
+                    });
+
+                    rowsHTML += `
+                        <td>${makeStepper(prefix, pId, 'reb')}</td>
+                        <td>${makeStepper(prefix, pId, 'ast')}</td>
+                        <td>${makeStepper(prefix, pId, 'stl')}</td>
+                        <td>${makeStepper(prefix, pId, 'blk')}</td>
+                        <td>${makeStepper(prefix, pId, 'to')}</td>
+                        <td>${makeStepper(prefix, pId, 'pf')}</td>
+                        <td class="pts-cell" id="pts_${prefix}_${pId}">0</td>
+                    </tr>`;
+                });
+            }
+
+            return `
+                <div class="team-header-banner">
+                    <div class="team-info">
+                        <img src="${team.logo}" class="team-header-logo" onerror="this.src='https://via.placeholder.com/45'">
+                        <h2>${team.name}</h2>
+                    </div>
+                    <div class="team-score-badge" id="teamScore_${prefix}">0 PTS</div>
+                </div>
+                <div class="table-responsive">
+                    <table class="stat-table">
+                        <thead>
+                            <tr>
+                                <th class="select-radio-cell">SEL</th>
+                                <th>#</th>
+                                <th class="player-col">PLAYER</th>
+                                ${getHeadersForFilter()}
+                                <th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>PF</th>
+                                <th>PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHTML}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function buildPercentagesTableHTML(teamKey, prefix) {
+            const team = teamsData[teamKey];
+            const activePlayers = team.roster.filter(p => p.active);
+            let rowsHTML = "";
+
+            if (activePlayers.length === 0) {
+                rowsHTML = `<tr><td colspan="17" style="padding:20px; color:var(--text-muted);">No active players selected.</td></tr>`;
+            } else {
+                activePlayers.forEach(player => {
+                    const pId = player.id;
+                    let m2 = 0, a2 = 0, m3 = 0, a3 = 0, m4 = 0, a4 = 0, ftm = 0, fta = 0;
+                    ['q1', 'q2', 'q3', 'q4'].forEach(q => {
+                        m2 += getStatVal(prefix, pId, `${q}_m2`);
+                        a2 += getStatVal(prefix, pId, `${q}_a2`);
+                        m3 += getStatVal(prefix, pId, `${q}_m3`);
+                        a3 += getStatVal(prefix, pId, `${q}_a3`);
+                        m4 += getStatVal(prefix, pId, `${q}_m4`);
+                        a4 += getStatVal(prefix, pId, `${q}_a4`);
+                        ftm += getStatVal(prefix, pId, `${q}_ftm`);
+                        fta += getStatVal(prefix, pId, `${q}_fta`);
+                    });
+
+                    const pct2 = a2 > 0 ? Math.round((m2/a2)*100)+'%' : '0%';
+                    const pct3 = a3 > 0 ? Math.round((m3/a3)*100)+'%' : '0%';
+                    const pct4 = a4 > 0 ? Math.round((m4/a4)*100)+'%' : '0%';
+                    const ftpct = fta > 0 ? Math.round((ftm/fta)*100)+'%' : '0%';
+                    const pts = (m2 * 2) + (m3 * 3) + (m4 * 4) + ftm;
+
+                    rowsHTML += `<tr>
+                        <td><strong>${player.jersey}</strong></td>
+                        <td class="player-col">${player.name}</td>
+                        <td>${m2}/${a2}</td><td class="pct-cell">${pct2}</td>
+                        <td>${m3}/${a3}</td><td class="pct-cell">${pct3}</td>
+                        <td>${m4}/${a4}</td><td class="pct-cell">${pct4}</td>
+                        <td>${ftm}/${fta}</td><td class="pct-cell">${ftpct}</td>
+                        <td>${getStatVal(prefix, pId, 'reb')}</td>
+                        <td>${getStatVal(prefix, pId, 'ast')}</td>
+                        <td>${getStatVal(prefix, pId, 'stl')}</td>
+                        <td>${getStatVal(prefix, pId, 'blk')}</td>
+                        <td>${getStatVal(prefix, pId, 'to')}</td>
+                        <td>${getStatVal(prefix, pId, 'pf')}</td>
+                        <td class="pts-cell">${pts}</td>
+                    </tr>`;
+                });
+            }
+
+            return `
+                <div class="team-header-banner">
+                    <div class="team-info">
+                        <img src="${team.logo}" class="team-header-logo" onerror="this.src='https://via.placeholder.com/45'">
+                        <h2>${team.name} — OVERALL BOX SCORE</h2>
+                    </div>
+                    <div class="team-score-badge" id="teamScore_${prefix}Percentages">0 PTS</div>
+                </div>
+                <div class="table-responsive">
+                    <table class="stat-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="player-col">PLAYER</th>
+                                <th>2PT (M/A)</th><th>2FG%</th>
+                                <th>3PT (M/A)</th><th>3FG%</th>
+                                <th>4PT (M/A)</th><th>4FG%</th>
+                                <th>FT (M/A)</th><th>FT%</th>
+                                <th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>PF</th>
+                                <th>PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHTML}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function getHeadersForFilter() {
+            let h = "";
+            const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
+            quarters.forEach(q => {
+                if (currentQuarterFilter === 'ALL' || currentQuarterFilter === q) {
+                    h += `<th>${q} 2M</th><th>${q} 2A</th><th>${q} 3M</th><th>${q} 3A</th><th>${q} 4M</th><th>${q} 4A</th><th>${q} FTM</th><th>${q} FTA</th>`;
+                }
+            });
+            return h;
+        }
+
+        function calcTableTotals(prefix) {
+            const homeKey = document.getElementById("homeTeamSelect").value;
+            const awayKey = document.getElementById("awayTeamSelect").value;
+            const teamKey = prefix === 'home' ? homeKey : awayKey;
+            const team = teamsData[teamKey];
+
+            let totalPoints = 0;
+            let qPts = { q1: 0, q2: 0, q3: 0, q4: 0 };
+
+            team.roster.filter(p => p.active).forEach(p => {
+                ['q1', 'q2', 'q3', 'q4'].forEach(q => {
+                    let m2 = getStatVal(prefix, p.id, `${q}_m2`);
+                    let m3 = getStatVal(prefix, p.id, `${q}_m3`);
+                    let m4 = getStatVal(prefix, p.id, `${q}_m4`);
+                    let ftm = getStatVal(prefix, p.id, `${q}_ftm`);
+                    let qSum = (m2 * 2) + (m3 * 3) + (m4 * 4) + ftm;
+                    qPts[q] += qSum;
+                    totalPoints += qSum;
+                });
+            });
+
+            // Update top scoreboard box
+            if (prefix === 'home') {
+                document.getElementById("homeTeamScoreLabel").textContent = team.name;
+                document.getElementById("homeQ1Pts").textContent = qPts.q1;
+                document.getElementById("homeQ2Pts").textContent = qPts.q2;
+                document.getElementById("homeQ3Pts").textContent = qPts.q3;
+                document.getElementById("homeQ4Pts").textContent = qPts.q4;
+                document.getElementById("homeTotalPts").textContent = `${totalPoints} PTS`;
+            } else {
+                document.getElementById("awayTeamScoreLabel").textContent = team.name;
+                document.getElementById("awayQ1Pts").textContent = qPts.q1;
+                document.getElementById("awayQ2Pts").textContent = qPts.q2;
+                document.getElementById("awayQ3Pts").textContent = qPts.q3;
+                document.getElementById("awayQ4Pts").textContent = qPts.q4;
+                document.getElementById("awayTotalPts").textContent = `${totalPoints} PTS`;
+            }
+
+            const scoreEl = document.getElementById(`teamScore_${prefix}`);
+            if (scoreEl) scoreEl.textContent = `${totalPoints} PTS`;
+
+            const scorePctEl = document.getElementById(`teamScore_${prefix}Percentages`);
+            if (scorePctEl) scorePctEl.textContent = `${totalPoints} PTS`;
+        }
+
+        function renderMatchup() {
+            const homeKey = document.getElementById("homeTeamSelect").value;
+            const awayKey = document.getElementById("awayTeamSelect").value;
+
+            document.getElementById("homeMatchupContainer").innerHTML = buildStatTableHTML(homeKey, "home");
+            document.getElementById("awayMatchupContainer").innerHTML = buildStatTableHTML(awayKey, "away");
+
+            document.getElementById("homePercentagesContainer").innerHTML = buildPercentagesTableHTML(homeKey, "home");
+            document.getElementById("awayPercentagesContainer").innerHTML = buildPercentagesTableHTML(awayKey, "away");
+
+            teamsData[homeKey].roster.filter(p => p.active).forEach(p => updateRowAndTotals('home', p.id));
+            teamsData[awayKey].roster.filter(p => p.active).forEach(p => updateRowAndTotals('away', p.id));
+        }
+
+        function setQuarterView(mode) {
+            currentQuarterFilter = mode;
+            document.querySelectorAll(".q-btn").forEach(b => b.classList.remove("active"));
+            event.target.classList.add("active");
+            renderMatchup();
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll(".view-panel").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".nav-btn").forEach(el => el.classList.remove("active"));
+
+            document.getElementById(tabId).classList.add("active");
+            event.currentTarget.classList.add("active");
+
+            if (tabId === 'percentages-view') {
+                renderMatchup();
+            } else if (tabId === 'leaders-view') {
+                renderTopLeadersTab();
+            } else if (tabId.startsWith('team-')) {
+                const teamKey = tabId.replace('team-', '');
+                renderTeamStatsTab(teamKey);
+            }
+        }
+
+        function exportCSV() {
+            let csv = [];
+            let activeView = document.querySelector(".view-panel.active");
+            let tables = activeView.querySelectorAll("table.stat-table");
+
+            tables.forEach(table => {
+                let rows = table.querySelectorAll("tr");
+                rows.forEach(row => {
+                    let cols = row.querySelectorAll("th, td");
+                    let rowData = [];
+                    cols.forEach(col => {
+                        let valSpan = col.querySelector(".stat-val");
+                        if (valSpan) {
+                            rowData.push(valSpan.textContent.trim());
+                        } else {
+                            rowData.push(`"${col.textContent.trim()}"`);
+                        }
+                    });
+                    csv.push(rowData.join(","));
+                });
+                csv.push("");
+            });
+
+            let csvFile = new Blob([csv.join("\n")], { type: "text/csv" });
+            let downloadLink = document.createElement("a");
+            downloadLink.download = `Congre_Basketball_Match_${new Date().toISOString().slice(0,10)}.csv`;
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.click();
+        }
+    </script>
+</body>
+</html>
