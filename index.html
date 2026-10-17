@@ -690,11 +690,11 @@
 
         <div class="quarter-filter-bar">
             <span style="color:var(--text-muted); font-weight:bold; margin-right:5px; font-size:0.95rem;">QUARTER FILTER (ACTIVE FOR HOTKEYS):</span>
-            <button class="q-btn active" onclick="setQuarterView('Q1')">Q1</button>
+            <button class="q-btn active" onclick="setQuarterView('ALL')">ALL (Q1 Default)</button>
+            <button class="q-btn" onclick="setQuarterView('Q1')">Q1</button>
             <button class="q-btn" onclick="setQuarterView('Q2')">Q2</button>
             <button class="q-btn" onclick="setQuarterView('Q3')">Q3</button>
             <button class="q-btn" onclick="setQuarterView('Q4')">Q4</button>
-            <button class="q-btn" onclick="setQuarterView('ALL')">ALL (Q1 Default)</button>
         </div>
 
         <div class="matchup-grid-vertical">
@@ -725,9 +725,10 @@
     <div id="single-team-views"></div>
 
     <script>
-        let currentQuarterFilter = 'Q1';
+        let currentQuarterFilter = 'ALL';
         let selectedPlayerContext = null; // { prefix, pId, playerName }
-        const matchArchive = [];
+        let matchArchive = [];
+        let statsData = {};
 
         const teamsData = {
             "URBAN": {
@@ -872,14 +873,38 @@
             }
         };
 
-        const statsData = {};
-
         document.addEventListener("DOMContentLoaded", () => {
+            loadFromLocalStorage();
             populateSelects();
             renderTeamViews();
             renderMatchup();
             setupKeyboardHotkeys();
         });
+
+        function saveToLocalStorage() {
+            const state = {
+                statsData,
+                matchArchive,
+                homeTeam: document.getElementById("homeTeamSelect")?.value,
+                awayTeam: document.getElementById("awayTeamSelect")?.value,
+                selectedPlayerContext
+            };
+            localStorage.setItem("cbl_statkeeper_state", JSON.stringify(state));
+        }
+
+        function loadFromLocalStorage() {
+            try {
+                const saved = localStorage.getItem("cbl_statkeeper_state");
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (parsed.statsData) Object.assign(statsData, parsed.statsData);
+                    if (parsed.matchArchive) matchArchive.push(...parsed.matchArchive);
+                    if (parsed.selectedPlayerContext) selectedPlayerContext = parsed.selectedPlayerContext;
+                }
+            } catch (e) {
+                console.error("Error loading autosave state:", e);
+            }
+        }
 
         function populateSelects() {
             const homeSelect = document.getElementById("homeTeamSelect");
@@ -891,8 +916,17 @@
                 awaySelect.innerHTML += `<option value="${key}">${teamsData[key].name}</option>`;
             });
 
-            homeSelect.value = keys[0];
-            awaySelect.value = keys[1];
+            const saved = localStorage.getItem("cbl_statkeeper_state");
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (parsed.homeTeam) homeSelect.value = parsed.homeTeam;
+                    if (parsed.awayTeam) awaySelect.value = parsed.awayTeam;
+                } catch (e) {}
+            }
+            if (homeSelect.value === awaySelect.value && keys.length > 1) {
+                awaySelect.value = keys[1];
+            }
         }
 
         function togglePlayerActive(teamKey, playerId) {
@@ -901,13 +935,18 @@
                 player.active = !player.active;
                 renderTeamViews();
                 renderMatchup();
+                saveToLocalStorage();
             }
         }
 
         function selectPlayerRadio(prefix, pId, playerName) {
             selectedPlayerContext = { prefix, pId, playerName };
-            document.getElementById("activePlayerIndicator").textContent = playerName;
-            document.getElementById("activePlayerIndicator").style.color = "#4ade80";
+            const indicator = document.getElementById("activePlayerIndicator");
+            if (indicator) {
+                indicator.textContent = playerName;
+                indicator.style.color = "#4ade80";
+            }
+            saveToLocalStorage();
         }
 
         function setupKeyboardHotkeys() {
@@ -953,20 +992,34 @@
         function saveCurrentMatchToArchive() {
             const homeKey = document.getElementById("homeTeamSelect").value;
             const awayKey = document.getElementById("awayTeamSelect").value;
+            const homeName = teamsData[homeKey].name;
+            const awayName = teamsData[awayKey].name;
             
             const matchSnapshot = {
                 id: Date.now(),
                 date: new Date().toLocaleString(),
                 homeKey: homeKey,
                 awayKey: awayKey,
-                homeName: teamsData[homeKey].name,
-                awayName: teamsData[awayKey].name,
+                homeName: homeName,
+                awayName: awayName,
                 stats: JSON.parse(JSON.stringify(statsData))
             };
 
             matchArchive.push(matchSnapshot);
-            alert(`Match saved successfully to archive! (${matchArchive.length} total matches saved)`);
+            saveToLocalStorage();
             renderTeamViews();
+
+            // Automatically download match archive JSON file named Home vs Away
+            const filename = `${homeName} vs ${awayName}_Match_Archive_${new Date().toISOString().slice(0,10)}.json`;
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(matchSnapshot, null, 2));
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute("href", dataStr);
+            downloadAnchor.setAttribute("download", filename);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+
+            alert(`Match saved successfully and downloaded as "${filename}"!`);
         }
 
         function exportArchiveJSON() {
@@ -989,7 +1042,14 @@
                         if (Array.isArray(imported)) {
                             matchArchive.length = 0;
                             matchArchive.push(...imported);
+                            saveToLocalStorage();
                             alert(`Successfully imported ${matchArchive.length} matches into archive!`);
+                            renderTeamViews();
+                            renderMatchup();
+                        } else if (imported.homeName && imported.awayName) {
+                            matchArchive.push(imported);
+                            saveToLocalStorage();
+                            alert(`Successfully imported match: ${imported.homeName} vs ${imported.awayName}`);
                             renderTeamViews();
                             renderMatchup();
                         } else {
@@ -1299,6 +1359,7 @@
             }
 
             updateRowAndTotals(prefix, pId);
+            saveToLocalStorage();
         }
 
         function getStatVal(prefix, pId, statKey) {
@@ -1340,22 +1401,38 @@
                     rowsHTML += `<tr id="row_${prefix}_${pId}">
                         <td><strong>${player.jersey}</strong></td>
                         <td class="player-col" id="name_${prefix}_${pId}">
-                            <input type="radio" name="activePlayerRadio" ${isChecked} onclick="selectPlayerRadio('${prefix}', '${pId}', '${player.name}')">
+                            <input type="radio" name="activePlayerRadio_${prefix}" ${isChecked} onclick="selectPlayerRadio('${prefix}', '${pId}', '${player.name}')">
                             <span>${player.name}</span>
                         </td>`;
 
-                    const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
-                    quarters.forEach(q => {
-                        const qLower = q.toLowerCase();
-                        if (currentQuarterFilter === 'ALL' || currentQuarterFilter === q) {
-                            rowsHTML += `
-                                <td>${makeStepper(prefix, pId, `${qLower}_m2`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a2`)}</td>
-                                <td>${makeStepper(prefix, pId, `${qLower}_m3`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a3`)}</td>
-                                <td>${makeStepper(prefix, pId, `${qLower}_m4`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a4`)}</td>
-                                <td>${makeStepper(prefix, pId, `${qLower}_ftm`)}</td><td>${makeStepper(prefix, pId, `${qLower}_fta`)}</td>
-                            `;
-                        }
-                    });
+                    if (currentQuarterFilter === 'ALL') {
+                        let tot2m=0, tot2a=0, tot3m=0, tot3a=0, tot4m=0, tot4a=0, totftm=0, totfta=0;
+                        ['q1', 'q2', 'q3', 'q4'].forEach(q => {
+                            tot2m += getStatVal(prefix, pId, `${q}_m2`);
+                            tot2a += getStatVal(prefix, pId, `${q}_a2`);
+                            tot3m += getStatVal(prefix, pId, `${q}_m3`);
+                            tot3a += getStatVal(prefix, pId, `${q}_a3`);
+                            tot4m += getStatVal(prefix, pId, `${q}_m4`);
+                            tot4a += getStatVal(prefix, pId, `${q}_a4`);
+                            totftm += getStatVal(prefix, pId, `${q}_ftm`);
+                            totfta += getStatVal(prefix, pId, `${q}_fta`);
+                        });
+
+                        rowsHTML += `
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_2m">${tot2m}/${tot2a}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_3m">${tot3m}/${tot3a}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_4m">${tot4m}/${tot4a}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_ftm">${totftm}/${totfta}</span></td>
+                        `;
+                    } else {
+                        const qLower = currentQuarterFilter.toLowerCase();
+                        rowsHTML += `
+                            <td>${makeStepper(prefix, pId, `${qLower}_m2`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a2`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_m3`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a3`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_m4`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a4`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_ftm`)}</td><td>${makeStepper(prefix, pId, `${qLower}_fta`)}</td>
+                        `;
+                    }
 
                     rowsHTML += `
                         <td>${makeStepper(prefix, pId, 'reb')}</td>
@@ -1469,14 +1546,12 @@
         }
 
         function getHeadersForFilter() {
-            let h = "";
-            const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
-            quarters.forEach(q => {
-                if (currentQuarterFilter === 'ALL' || currentQuarterFilter === q) {
-                    h += `<th>${q} 2M</th><th>${q} 2A</th><th>${q} 3M</th><th>${q} 3A</th><th>${q} 4M</th><th>${q} 4A</th><th>${q} FTM</th><th>${q} FTA</th>`;
-                }
-            });
-            return h;
+            if (currentQuarterFilter === 'ALL') {
+                return `<th>2PT (M/A)</th><th>3PT (M/A)</th><th>4PT (M/A)</th><th>FT (M/A)</th>`;
+            } else {
+                let q = currentQuarterFilter;
+                return `<th>${q} 2M</th><th>${q} 2A</th><th>${q} 3M</th><th>${q} 3A</th><th>${q} 4M</th><th>${q} 4A</th><th>${q} FTM</th><th>${q} FTA</th>`;
+            }
         }
 
         function calcTableTotals(prefix) {
@@ -1498,6 +1573,28 @@
                     qPts[q] += qSum;
                     totalPoints += qSum;
                 });
+
+                if (currentQuarterFilter === 'ALL') {
+                    let tot2m=0, tot2a=0, tot3m=0, tot3a=0, tot4m=0, tot4a=0, totftm=0, totfta=0;
+                    ['q1', 'q2', 'q3', 'q4'].forEach(q => {
+                        tot2m += getStatVal(prefix, p.id, `${q}_m2`);
+                        tot2a += getStatVal(prefix, p.id, `${q}_a2`);
+                        tot3m += getStatVal(prefix, p.id, `${q}_m3`);
+                        tot3a += getStatVal(prefix, p.id, `${q}_a3`);
+                        tot4m += getStatVal(prefix, p.id, `${q}_m4`);
+                        tot4a += getStatVal(prefix, p.id, `${q}_a4`);
+                        totftm += getStatVal(prefix, p.id, `${q}_ftm`);
+                        totfta += getStatVal(prefix, p.id, `${q}_fta`);
+                    });
+                    const setVal = (id, txt) => {
+                        const el = document.getElementById(id);
+                        if (el) el.textContent = txt;
+                    };
+                    setVal(`val_tot_${prefix}_${p.id}_2m`, `${tot2m}/${tot2a}`);
+                    setVal(`val_tot_${prefix}_${p.id}_3m`, `${tot3m}/${tot3a}`);
+                    setVal(`val_tot_${prefix}_${p.id}_4m`, `${tot4m}/${tot4a}`);
+                    setVal(`val_tot_${prefix}_${p.id}_ftm`, `${totftm}/${totfta}`);
+                }
             });
 
             if (prefix === 'home') {
@@ -1535,6 +1632,7 @@
 
             teamsData[homeKey].roster.filter(p => p.active).forEach(p => updateRowAndTotals('home', p.id));
             teamsData[awayKey].roster.filter(p => p.active).forEach(p => updateRowAndTotals('away', p.id));
+            saveToLocalStorage();
         }
 
         function setQuarterView(mode) {
