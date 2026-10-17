@@ -975,6 +975,7 @@
                         <img src="${team.logo}" class="team-header-logo" onerror="this.src='https://via.placeholder.com/45'">
                         <h2>${team.name} — OVERALL BOX SCORE</h2>
                     </div>
+                    <div class="team-score-badge" id="teamScore_${prefix}Percentages">0 PTS</div>
                 </div>
                 <div class="table-responsive">
                     <table class="stat-table">
@@ -1028,6 +1029,9 @@
 
             const scoreEl = document.getElementById(`teamScore_${prefix}`);
             if (scoreEl) scoreEl.textContent = `${totalPoints} PTS`;
+
+            const scorePctEl = document.getElementById(`teamScore_${prefix}Percentages`);
+            if (scorePctEl) scorePctEl.textContent = `${totalPoints} PTS`;
         }
 
         function renderMatchup() {
