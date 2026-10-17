@@ -17,6 +17,15 @@
             --success-green: #22c55e;
         }
 
+        @keyframes yellowFlash {
+            0% { background-color: #f59e0b; color: #000; }
+            100% { background-color: inherit; color: inherit; }
+        }
+
+        .flashing {
+            animation: yellowFlash 0.8s ease;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -76,7 +85,7 @@
             margin-top: 2px;
         }
 
-        /* LIVE QUARTER SCOREBOARD BAR */
+        /* LIVE QUARTER SCOREBOARD BOX */
         .live-scoreboard-box {
             background: linear-gradient(135deg, #1e293b, #0f172a);
             border: 2px solid var(--accent-gold);
@@ -385,29 +394,28 @@
             text-align: left !important;
             padding-left: 8px !important;
             white-space: nowrap;
-            min-width: 175px;
+            min-width: 200px;
             font-weight: 700;
             font-size: 0.95rem;
             position: sticky;
             left: 0;
             background: #1e293b;
             z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         table.stat-table tr:nth-child(even) .player-col {
             background: #172033;
         }
 
-        .select-radio-cell {
-            text-align: center;
-            width: 35px;
-        }
-
-        .select-radio-cell input[type="radio"] {
-            width: 18px;
-            height: 18px;
+        .player-col input[type="radio"] {
+            width: 16px;
+            height: 16px;
             cursor: pointer;
             accent-color: var(--accent-gold);
+            flex-shrink: 0;
         }
 
         /* ENLARGED TOUCH STEPPERS */
@@ -592,7 +600,7 @@
 
         @media print {
             body { background: #fff; color: #000; }
-            .nav-tabs, .matchup-selector-bar, .quarter-filter-bar, .actions-bar, .step-btns, .hotkey-banner, .select-radio-cell { display: none !important; }
+            .nav-tabs, .matchup-selector-bar, .quarter-filter-bar, .actions-bar, .step-btns, .hotkey-banner, input[type="radio"] { display: none !important; }
             .team-card { background: #fff; border: 1px solid #000; }
             table.stat-table th { background: #eee !important; color: #000 !important; }
         }
@@ -604,7 +612,7 @@
         <img src="840069523_1617887930033821_6965812852497925699_n.jpg" class="header-logo" onerror="this.src='https://via.placeholder.com/65/0f172a/f59e0b?text=CBL'">
         <div class="header-title-container">
             <h1>Congre Basketball Olympics</h1>
-            <p>Season 2 — Live Match Stat Tracker with Hotkeys</p>
+            <p>Season 2 — Live Match Stat Tracker</p>
         </div>
         <img src="839859719_930183739880776_4844381458750892179_n.jpg" class="header-logo" onerror="this.src='https://via.placeholder.com/65/0f172a/f59e0b?text=S2'">
     </header>
@@ -636,9 +644,9 @@
 
     <!-- HOTKEY INSTRUCTION BANNER -->
     <div class="hotkey-banner">
-        <span style="color:var(--accent-gold); font-weight:bold;">⌨️ HOTKEYS ACTIVE (<span id="activePlayerIndicator" style="color:#38bdf8;">Click a player radio first</span>)</span>
-        <span style="color:var(--text-light); font-size:0.85rem;">
-            <strong>[1]</strong> FT (+Make/Att) | <strong>[2]</strong> 2PT (+Make/Att) | <strong>[3]</strong> 3PT (+Make/Att) | <strong>[4]</strong> 4PT (+Make/Att) | <strong>[R]</strong> Reb | <strong>[A]</strong> Ast | <strong>[B]</strong> Blk | <strong>[T]</strong> TO
+        <span style="color:var(--accent-gold); font-weight:bold;">⚡ ACTIVE PLAYER: <span id="activePlayerIndicator" style="color:#38bdf8;">None Selected</span></span>
+        <span style="color:var(--text-light); font-size:0.83rem;">
+            <strong>[1]</strong> FT | <strong>[2]</strong> 2PT | <strong>[3]</strong> 3PT | <strong>[4]</strong> 4PT | <strong>[R]</strong> Reb | <strong>[A]</strong> Ast | <strong>[S]</strong> Stl | <strong>[B]</strong> Blk | <strong>[T]</strong> TO
         </span>
     </div>
 
@@ -717,7 +725,7 @@
     <div id="single-team-views"></div>
 
     <script>
-        let currentQuarterFilter = 'Q1'; // Default active hotkey quarter
+        let currentQuarterFilter = 'Q1';
         let selectedPlayerContext = null; // { prefix, pId, playerName }
         const matchArchive = [];
 
@@ -929,6 +937,9 @@
                 } else if (key === 'a') {
                     e.preventDefault();
                     stepStat(prefix, pId, 'ast', 1);
+                } else if (key === 's') {
+                    e.preventDefault();
+                    stepStat(prefix, pId, 'stl', 1);
                 } else if (key === 'b') {
                     e.preventDefault();
                     stepStat(prefix, pId, 'blk', 1);
@@ -1275,7 +1286,19 @@
             }
 
             const valEl = document.getElementById(`val_${key}`);
-            if (valEl) valEl.textContent = statsData[key];
+            if (valEl) {
+                valEl.textContent = statsData[key];
+                valEl.classList.add('flashing');
+                setTimeout(() => valEl.classList.remove('flashing'), 800);
+            }
+
+            // Flash player row name
+            const nameEl = document.getElementById(`name_${prefix}_${pId}`);
+            if (nameEl) {
+                nameEl.classList.add('flashing');
+                setTimeout(() => nameEl.classList.remove('flashing'), 800);
+            }
+
             updateRowAndTotals(prefix, pId);
         }
 
@@ -1316,11 +1339,11 @@
                     const isChecked = selectedPlayerContext && selectedPlayerContext.pId === pId ? 'checked' : '';
 
                     rowsHTML += `<tr id="row_${prefix}_${pId}">
-                        <td class="select-radio-cell">
-                            <input type="radio" name="activePlayerRadio" ${isChecked} onclick="selectPlayerRadio('${prefix}', '${pId}', '${player.name}')">
-                        </td>
                         <td><strong>${player.jersey}</strong></td>
-                        <td class="player-col">${player.name}</td>`;
+                        <td class="player-col" id="name_${prefix}_${pId}">
+                            <input type="radio" name="activePlayerRadio" ${isChecked} onclick="selectPlayerRadio('${prefix}', '${pId}', '${player.name}')">
+                            <span>${player.name}</span>
+                        </td>`;
 
                     const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
                     quarters.forEach(q => {
@@ -1359,9 +1382,8 @@
                     <table class="stat-table">
                         <thead>
                             <tr>
-                                <th class="select-radio-cell">SEL</th>
                                 <th>#</th>
-                                <th class="player-col">PLAYER</th>
+                                <th class="player-col">PLAYER (SELECT RADIO)</th>
                                 ${getHeadersForFilter()}
                                 <th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>PF</th>
                                 <th>PTS</th>
@@ -1479,7 +1501,6 @@
                 });
             });
 
-            // Update top scoreboard box
             if (prefix === 'home') {
                 document.getElementById("homeTeamScoreLabel").textContent = team.name;
                 document.getElementById("homeQ1Pts").textContent = qPts.q1;
