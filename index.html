@@ -390,11 +390,17 @@
             background-color: #172033;
         }
 
+        .player-row-bench {
+            opacity: 0.35;
+            background-color: #0f172a !important;
+            pointer-events: none;
+        }
+
         .player-col {
             text-align: left !important;
             padding-left: 8px !important;
             white-space: nowrap;
-            min-width: 200px;
+            min-width: 220px;
             font-weight: 700;
             font-size: 0.95rem;
             position: sticky;
@@ -416,6 +422,27 @@
             cursor: pointer;
             accent-color: var(--accent-gold);
             flex-shrink: 0;
+        }
+
+        .oncourt-checkbox-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 0.75rem;
+            background: #0f172a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            color: var(--text-muted);
+            margin-left: 4px;
+        }
+
+        .oncourt-checkbox-label input {
+            cursor: pointer;
+            width: 13px;
+            height: 13px;
+            accent-color: var(--success-green);
         }
 
         /* ENLARGED TOUCH STEPPERS */
@@ -600,7 +627,7 @@
 
         @media print {
             body { background: #fff; color: #000; }
-            .nav-tabs, .matchup-selector-bar, .quarter-filter-bar, .actions-bar, .step-btns, .hotkey-banner, input[type="radio"] { display: none !important; }
+            .nav-tabs, .matchup-selector-bar, .quarter-filter-bar, .actions-bar, .step-btns, .hotkey-banner, input[type="radio"], input[type="checkbox"] { display: none !important; }
             .team-card { background: #fff; border: 1px solid #000; }
             table.stat-table th { background: #eee !important; color: #000 !important; }
         }
@@ -668,7 +695,7 @@
         <button class="action-btn save-match-btn" onclick="saveCurrentMatchToArchive()">💾 Save Match to Archive</button>
         <button class="action-btn" style="background:#3b82f6;" onclick="exportArchiveJSON()">📤 Export Archive (JSON)</button>
         <label class="action-btn" style="background:#6366f1; cursor:pointer; margin:0;">
-            📥 Import Archive <input type="file" id="importFile" accept=".json" style="display:none" onchange="importArchiveJSON(event)">
+            📥 Import Archive / Tourneyo Data <input type="file" id="importFile" accept=".json" style="display:none" onchange="importArchiveJSON(event)">
         </label>
         <button class="action-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
         <button class="action-btn" onclick="exportCSV()">📥 Download CSV</button>
@@ -729,6 +756,7 @@
         let selectedPlayerContext = null; // { prefix, pId, playerName }
         let matchArchive = [];
         let statsData = {};
+        let onCourtPlayers = { home: {}, away: {} }; // Tracks 5 players on court per team { pId: true/false }
 
         const teamsData = {
             "URBAN": {
@@ -876,15 +904,33 @@
         document.addEventListener("DOMContentLoaded", () => {
             loadFromLocalStorage();
             populateSelects();
+            initOnCourtDefaults();
             renderTeamViews();
             renderMatchup();
             setupKeyboardHotkeys();
         });
 
+        function initOnCourtDefaults() {
+            ['home', 'away'].forEach(prefix => {
+                if (!onCourtPlayers[prefix]) onCourtPlayers[prefix] = {};
+                const teamKey = document.getElementById(prefix + 'TeamSelect')?.value || Object.keys(teamsData)[0];
+                const team = teamsData[teamKey];
+                if (team) {
+                    team.roster.filter(p => p.active).forEach((p, idx) => {
+                        // Default first 5 players to on-court if not set
+                        if (onCourtPlayers[prefix][p.id] === undefined) {
+                            onCourtPlayers[prefix][p.id] = idx < 5;
+                        }
+                    });
+                }
+            });
+        }
+
         function saveToLocalStorage() {
             const state = {
                 statsData,
                 matchArchive,
+                onCourtPlayers,
                 homeTeam: document.getElementById("homeTeamSelect")?.value,
                 awayTeam: document.getElementById("awayTeamSelect")?.value,
                 selectedPlayerContext
@@ -899,6 +945,7 @@
                     const parsed = JSON.parse(saved);
                     if (parsed.statsData) Object.assign(statsData, parsed.statsData);
                     if (parsed.matchArchive) matchArchive.push(...parsed.matchArchive);
+                    if (parsed.onCourtPlayers) Object.assign(onCourtPlayers, parsed.onCourtPlayers);
                     if (parsed.selectedPlayerContext) selectedPlayerContext = parsed.selectedPlayerContext;
                 }
             } catch (e) {
@@ -939,7 +986,32 @@
             }
         }
 
+        function toggleOnCourt(prefix, pId) {
+            if (!onCourtPlayers[prefix]) onCourtPlayers[prefix] = {};
+            onCourtPlayers[prefix][pId] = !onCourtPlayers[prefix][pId];
+            
+            const row = document.getElementById(`row_${prefix}_${pId}`);
+            if (row) {
+                if (onCourtPlayers[prefix][pId]) {
+                    row.classList.remove('player-row-bench');
+                } else {
+                    row.classList.add('player-row-bench');
+                    if (selectedPlayerContext && selectedPlayerContext.pId === pId) {
+                        selectedPlayerContext = null;
+                        document.getElementById("activePlayerIndicator").textContent = "None Selected";
+                        document.getElementById("activePlayerIndicator").style.color = "#38bdf8";
+                    }
+                }
+            }
+            saveToLocalStorage();
+        }
+
         function selectPlayerRadio(prefix, pId, playerName) {
+            if (!onCourtPlayers[prefix] || !onCourtPlayers[prefix][pId]) {
+                alert("This player is currently on the bench (not checked 'On Court'). Please check 'On Court' to select them.");
+                renderMatchup();
+                return;
+            }
             selectedPlayerContext = { prefix, pId, playerName };
             const indicator = document.getElementById("activePlayerIndicator");
             if (indicator) {
@@ -955,6 +1027,8 @@
                 if (!selectedPlayerContext) return;
 
                 const { prefix, pId } = selectedPlayerContext;
+                if (!onCourtPlayers[prefix] || !onCourtPlayers[prefix][pId]) return;
+
                 const qKey = (currentQuarterFilter === 'ALL' ? 'q1' : currentQuarterFilter).toLowerCase();
                 const key = e.key.toLowerCase();
 
@@ -1009,7 +1083,6 @@
             saveToLocalStorage();
             renderTeamViews();
 
-            // Automatically download match archive JSON file named Home vs Away
             const filename = `${homeName} vs ${awayName}_Match_Archive_${new Date().toISOString().slice(0,10)}.json`;
             const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(matchSnapshot, null, 2));
             const downloadAnchor = document.createElement('a');
@@ -1043,7 +1116,7 @@
                             matchArchive.length = 0;
                             matchArchive.push(...imported);
                             saveToLocalStorage();
-                            alert(`Successfully imported ${matchArchive.length} matches into archive!`);
+                            alert(`Successfully imported ${matchArchive.length} matches into archive! Running averages updated.`);
                             renderTeamViews();
                             renderMatchup();
                         } else if (imported.homeName && imported.awayName) {
@@ -1200,7 +1273,7 @@
             const tPctFt = totals.fta > 0 ? Math.round((totals.ftm/totals.fta)*100)+'%' : '0%';
 
             return `
-                <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:10px;">Mode: <strong>${subtitle}</strong></p>
+                <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:10px;">Mode: <strong>${subtitle}</strong> (Averaged across ${gamesCount} game(s))</p>
                 <div class="table-responsive">
                     <table class="stat-table">
                         <thead>
@@ -1322,18 +1395,23 @@
             const key = `${prefix}_${pId}_${statKey}`;
             if (!(key in statsData)) statsData[key] = 0;
 
+            const isOnCourt = onCourtPlayers[prefix] && onCourtPlayers[prefix][pId];
+            const disabledAttr = isOnCourt ? '' : 'disabled style="opacity:0.4;"';
+
             return `
-                <div class="stepper-unit">
+                <div class="stepper-unit" ${disabledAttr}>
                     <span class="stat-val" id="val_${key}">${statsData[key]}</span>
                     <div class="step-btns">
-                        <button class="step-btn" onclick="stepStat('${prefix}', '${pId}', '${statKey}', 1)">▲</button>
-                        <button class="step-btn dn" onclick="stepStat('${prefix}', '${pId}', '${statKey}', -1)">▼</button>
+                        <button class="step-btn" ${disabledAttr} onclick="stepStat('${prefix}', '${pId}', '${statKey}', 1)">▲</button>
+                        <button class="step-btn dn" ${disabledAttr} onclick="stepStat('${prefix}', '${pId}', '${statKey}', -1)">▼</button>
                     </div>
                 </div>
             `;
         }
 
         function stepStat(prefix, pId, statKey, delta) {
+            if (!onCourtPlayers[prefix] || !onCourtPlayers[prefix][pId]) return;
+
             const key = `${prefix}_${pId}_${statKey}`;
             if (!(key in statsData)) statsData[key] = 0;
             statsData[key] = Math.max(0, statsData[key] + delta);
@@ -1391,17 +1469,28 @@
             const activePlayers = team.roster.filter(p => p.active);
             let rowsHTML = "";
 
+            if (!onCourtPlayers[prefix]) onCourtPlayers[prefix] = {};
+
             if (activePlayers.length === 0) {
                 rowsHTML = `<tr><td colspan="25" style="padding:20px; color:var(--text-muted);">No active players selected. Enable players in roster view.</td></tr>`;
             } else {
-                activePlayers.forEach(player => {
+                activePlayers.forEach((player, idx) => {
                     const pId = player.id;
+                    if (onCourtPlayers[prefix][pId] === undefined) {
+                        onCourtPlayers[prefix][pId] = idx < 5;
+                    }
+                    const isOnCourt = onCourtPlayers[prefix][pId];
                     const isChecked = selectedPlayerContext && selectedPlayerContext.pId === pId ? 'checked' : '';
+                    const rowClass = isOnCourt ? '' : 'player-row-bench';
+                    const courtChecked = isOnCourt ? 'checked' : '';
 
-                    rowsHTML += `<tr id="row_${prefix}_${pId}">
+                    rowsHTML += `<tr id="row_${prefix}_${pId}" class="${rowClass}">
                         <td><strong>${player.jersey}</strong></td>
                         <td class="player-col" id="name_${prefix}_${pId}">
                             <input type="radio" name="activePlayerRadio_${prefix}" ${isChecked} onclick="selectPlayerRadio('${prefix}', '${pId}', '${player.name}')">
+                            <label class="oncourt-checkbox-label" title="Check if 5-man on court">
+                                <input type="checkbox" ${courtChecked} onchange="toggleOnCourt('${prefix}', '${pId}')"> Court
+                            </label>
                             <span>${player.name}</span>
                         </td>`;
 
@@ -1459,7 +1548,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th class="player-col">PLAYER (SELECT RADIO)</th>
+                                <th class="player-col">PLAYER (SELECT RADIO & COURT)</th>
                                 ${getHeadersForFilter()}
                                 <th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>PF</th>
                                 <th>PTS</th>
