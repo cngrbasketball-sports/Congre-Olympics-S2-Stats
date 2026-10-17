@@ -405,12 +405,6 @@
             font-size: 0.95rem;
         }
 
-        tfoot tr {
-            background: #0f172a !important;
-            font-weight: bold;
-            color: var(--accent-gold);
-        }
-
         /* ROSTER MANAGEMENT STYLES */
         .roster-card {
             background: var(--card-bg);
@@ -473,6 +467,7 @@
             gap: 10px;
             justify-content: flex-end;
             margin-bottom: 15px;
+            flex-wrap: wrap;
         }
 
         .action-btn {
@@ -491,7 +486,23 @@
             color: var(--accent-gold);
         }
 
-        /* MEDIA QUERIES FOR PHONES & TABLETS */
+        .action-btn.save-match-btn {
+            background: var(--success-green);
+            color: #000;
+            border-color: #16a34a;
+        }
+
+        .archive-selector {
+            background: #1e293b;
+            color: var(--accent-gold);
+            border: 2px solid var(--accent-gold);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
         @media (max-width: 600px) {
             body { padding: 8px; }
             .header-logo { width: 50px; height: 50px; }
@@ -523,9 +534,10 @@
         <img src="839859719_930183739880776_4844381458750892179_n.jpg" class="header-logo" onerror="this.src='https://via.placeholder.com/65/0f172a/f59e0b?text=S2'">
     </header>
 
-    <nav class="nav-tabs">
+    <nav class="nav-tabs" id="mainNavTabs">
         <button class="nav-btn matchup-btn active" onclick="switchTab('matchup-view')">⚡ LIVE MATCH-UP VIEW</button>
         <button class="nav-btn" onclick="switchTab('percentages-view')">📊 OVERALL PERCENTAGES & BOX SCORE</button>
+        <button class="nav-btn" onclick="switchTab('leaders-view')">🏆 TOP 5 LEADERS</button>
         <button class="nav-btn" onclick="switchTab('team-URBAN')"><img src="Urban.jpg" class="tab-icon" onerror="this.src='https://via.placeholder.com/22'"> Urban Hoopers</button>
         <button class="nav-btn" onclick="switchTab('team-BALDOG')"><img src="baldog.jpg" class="tab-icon" onerror="this.src='https://via.placeholder.com/22'"> Baldogiii</button>
         <button class="nav-btn" onclick="switchTab('team-WAR')"><img src="total war.jpg" class="tab-icon" onerror="this.src='https://via.placeholder.com/22'"> Total War</button>
@@ -537,6 +549,7 @@
     </nav>
 
     <div class="actions-bar">
+        <button class="action-btn save-match-btn" onclick="saveCurrentMatchToArchive()">💾 Save Match to Archive</button>
         <button class="action-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
         <button class="action-btn" onclick="exportCSV()">📥 Download CSV</button>
     </div>
@@ -565,9 +578,7 @@
         </div>
 
         <div class="matchup-grid-vertical">
-            <!-- HOME TEAM (TOP) -->
             <div id="homeMatchupContainer" class="team-card"></div>
-            <!-- AWAY TEAM (BOTTOM) -->
             <div id="awayMatchupContainer" class="team-card"></div>
         </div>
     </div>
@@ -580,11 +591,22 @@
         </div>
     </div>
 
-    <!-- ROSTER MANAGEMENT VIEWS -->
+    <!-- TOP 5 LEADERS VIEW -->
+    <div id="leaders-view" class="view-panel">
+        <div class="team-card">
+            <div class="team-header-banner">
+                <h2 style="color:var(--accent-gold);">🏆 TOURNAMENT TOP 5 STAT LEADERS (AVERAGES)</h2>
+            </div>
+            <div id="leadersContainer"></div>
+        </div>
+    </div>
+
+    <!-- ROSTER MANAGEMENT & TEAM ARCHIVES VIEWS -->
     <div id="single-team-views"></div>
 
     <script>
         let currentQuarterFilter = 'ALL';
+        const matchArchive = []; // Stores saved match snapshots
 
         const teamsData = {
             "URBAN": {
@@ -733,7 +755,7 @@
 
         document.addEventListener("DOMContentLoaded", () => {
             populateSelects();
-            renderRosterManagementViews();
+            renderTeamViews();
             renderMatchup();
         });
 
@@ -755,19 +777,44 @@
             let player = teamsData[teamKey].roster.find(p => p.id === playerId);
             if (player) {
                 player.active = !player.active;
-                renderRosterManagementViews();
+                renderTeamViews();
                 renderMatchup();
             }
         }
 
-        function renderRosterManagementViews() {
+        function saveCurrentMatchToArchive() {
+            const homeKey = document.getElementById("homeTeamSelect").value;
+            const awayKey = document.getElementById("awayTeamSelect").value;
+            
+            const matchSnapshot = {
+                id: Date.now(),
+                date: new Date().toLocaleString(),
+                homeKey: homeKey,
+                awayKey: awayKey,
+                homeName: teamsData[homeKey].name,
+                awayName: teamsData[awayKey].name,
+                stats: JSON.parse(JSON.stringify(statsData))
+            };
+
+            matchArchive.push(matchSnapshot);
+            alert(`Match saved successfully to archive! (${matchArchive.length} total matches saved)`);
+            renderTeamViews();
+        }
+
+        function renderTeamViews() {
             const container = document.getElementById("single-team-views");
             container.innerHTML = "";
 
             Object.keys(teamsData).forEach(teamKey => {
                 const team = teamsData[teamKey];
-                let rosterItemsHTML = "";
+                
+                // Build Archive Selector options
+                let archiveOptions = `<option value="LIVE">⚡ Current Active / Live Session</option>`;
+                matchArchive.forEach((m, idx) => {
+                    archiveOptions += `<option value="${m.id}">Match #${idx + 1} (${m.date}) - vs ${m.homeKey === teamKey ? m.awayName : m.homeName}</option>`;
+                });
 
+                let rosterItemsHTML = "";
                 team.roster.forEach(player => {
                     rosterItemsHTML += `
                         <div class="roster-item ${player.active ? '' : 'inactive'}">
@@ -787,19 +834,237 @@
                 viewDiv.id = `team-${teamKey}`;
                 viewDiv.className = "view-panel";
                 viewDiv.innerHTML = `
-                    <div class="roster-card">
-                        <div class="roster-header">
+                    <div class="team-card" style="margin-bottom:15px;">
+                        <div class="team-header-banner">
                             <div style="display:flex; align-items:center; gap:12px;">
                                 <img src="${team.logo}" style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-gold);">
-                                <h2 style="color:var(--accent-gold);">${team.name} — GAME ROSTER</h2>
+                                <h2 style="color:var(--accent-gold);">${team.name} — TEAM STATS & ARCHIVES</h2>
                             </div>
-                            <span style="color:var(--text-muted); font-size:0.9rem;">Uncheck players who are not playing today</span>
+                        </div>
+                        <div style="margin-bottom:12px;">
+                            <label style="color:var(--text-muted); font-weight:bold; display:block; margin-bottom:5px;">📂 SELECT MATCH VIEW / ARCHIVE:</label>
+                            <select id="archiveSelect_${teamKey}" class="archive-selector" onchange="renderTeamStatsTab('${teamKey}')">
+                                ${archiveOptions}
+                            </select>
+                        </div>
+                        <div id="teamStatsContainer_${teamKey}"></div>
+                    </div>
+
+                    <div class="roster-card">
+                        <div class="roster-header">
+                            <h3 style="color:var(--accent-gold);">Roster Management</h3>
+                            <span style="color:var(--text-muted); font-size:0.9rem;">Uncheck players who are DNP</span>
                         </div>
                         <div class="roster-list">${rosterItemsHTML}</div>
                     </div>
                 `;
                 container.appendChild(viewDiv);
+                renderTeamStatsTab(teamKey);
             });
+        }
+
+        function renderTeamStatsTab(teamKey) {
+            const selectEl = document.getElementById(`archiveSelect_${teamKey}`);
+            const selectedVal = selectEl ? selectEl.value : 'LIVE';
+            const container = document.getElementById(`teamStatsContainer_${teamKey}`);
+            const team = teamsData[teamKey];
+
+            if (selectedVal === 'LIVE') {
+                // Render live aggregated or current matchup view for this team
+                container.innerHTML = buildAggregatedTeamTable(teamKey, statsData, "Live Session Stats");
+            } else {
+                const match = matchArchive.find(m => m.id == selectedVal);
+                if (match) {
+                    container.innerHTML = buildAggregatedTeamTable(teamKey, match.stats, `Archived Match (${match.date})`);
+                }
+            }
+        }
+
+        function buildAggregatedTeamTable(teamKey, sourceStats, subtitle) {
+            const team = teamsData[teamKey];
+            let rowsHTML = "";
+            let totals = { m2:0, a2:0, m3:0, a3:0, m4:0, a4:0, ftm:0, fta:0, reb:0, ast:0, stl:0, blk:0, to:0, pf:0, pts:0 };
+            let gamesCount = matchArchive.length > 0 ? matchArchive.length : 1;
+
+            team.roster.forEach(player => {
+                const pId = player.id;
+                // Find matching prefix in sourceStats ('home' or 'away' or direct keys)
+                let p2m=0, p2a=0, p3m=0, p3a=0, p4m=0, p4a=0, pftm=0, pfta=0, preb=0, past=0, pstl=0, pblk=0, pto=0, ppf=0;
+
+                Object.keys(sourceStats).forEach(k => {
+                    if (k.includes(pId)) {
+                        const val = sourceStats[k];
+                        if (k.endsWith('_m2')) p2m += val;
+                        if (k.endsWith('_a2')) p2a += val;
+                        if (k.endsWith('_m3')) p3m += val;
+                        if (k.endsWith('_a3')) p3a += val;
+                        if (k.endsWith('_m4')) p4m += val;
+                        if (k.endsWith('_a4')) p4a += val;
+                        if (k.endsWith('_ftm')) pftm += val;
+                        if (k.endsWith('_fta')) pfta += val;
+                        if (k.endsWith('_reb')) preb += val;
+                        if (k.endsWith('_ast')) past += val;
+                        if (k.endsWith('_stl')) pstl += val;
+                        if (k.endsWith('_blk')) pblk += val;
+                        if (k.endsWith('_to')) pto += val;
+                        if (k.endsWith('_pf')) ppf += val;
+                    }
+                });
+
+                const pPts = (p2m * 2) + (p3m * 3) + (p4m * 4) + pftm;
+                const pct2 = p2a > 0 ? Math.round((p2m/p2a)*100)+'%' : '0%';
+                const pct3 = p3a > 0 ? Math.round((p3m/p3a)*100)+'%' : '0%';
+                const pct4 = p4a > 0 ? Math.round((p4m/p4a)*100)+'%' : '0%';
+                const pctFt = pfta > 0 ? Math.round((pftm/pfta)*100)+'%' : '0%';
+
+                totals.m2 += p2m; totals.a2 += p2a;
+                totals.m3 += p3m; totals.a3 += p3a;
+                totals.m4 += p4m; totals.a4 += p4a;
+                totals.ftm += pftm; totals.fta += pfta;
+                totals.reb += preb; totals.ast += past;
+                totals.stl += pstl; totals.blk += pblk;
+                totals.to += pto; totals.pf += ppf;
+                totals.pts += pPts;
+
+                rowsHTML += `<tr>
+                    <td><strong>${player.jersey}</strong></td>
+                    <td class="player-col">${player.name}</td>
+                    <td>${p2m}/${p2a}</td><td class="pct-cell">${pct2}</td>
+                    <td>${p3m}/${p3a}</td><td class="pct-cell">${pct3}</td>
+                    <td>${p4m}/${p4a}</td><td class="pct-cell">${pct4}</td>
+                    <td>${pftm}/${pfta}</td><td class="pct-cell">${pctFt}</td>
+                    <td>${preb}</td><td>${past}</td><td>${pstl}</td><td>${pblk}</td><td>${pto}</td><td>${ppf}</td>
+                    <td class="pts-cell">${pPts}</td>
+                </tr>`;
+            });
+
+            // Averages row calculation
+            const avg = (val) => (val / gamesCount).toFixed(1);
+            const tPct2 = totals.a2 > 0 ? Math.round((totals.m2/totals.a2)*100)+'%' : '0%';
+            const tPct3 = totals.a3 > 0 ? Math.round((totals.m3/totals.a3)*100)+'%' : '0%';
+            const tPct4 = totals.a4 > 0 ? Math.round((totals.m4/totals.a4)*100)+'%' : '0%';
+            const tPctFt = totals.fta > 0 ? Math.round((totals.ftm/totals.fta)*100)+'%' : '0%';
+
+            return `
+                <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:10px;">Mode: <strong>${subtitle}</strong></p>
+                <div class="table-responsive">
+                    <table class="stat-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="player-col">PLAYER</th>
+                                <th>2PT (M/A)</th><th>2FG%</th>
+                                <th>3PT (M/A)</th><th>3FG%</th>
+                                <th>4PT (M/A)</th><th>4FG%</th>
+                                <th>FT (M/A)</th><th>FT%</th>
+                                <th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>PF</th>
+                                <th>PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rowsHTML}</tbody>
+                        <tfoot>
+                            <tr style="background:#0f172a; color:var(--accent-gold);">
+                                <td colspan="2" class="player-col">TEAM TOTALS</td>
+                                <td>${totals.m2}/${totals.a2}</td><td class="pct-cell">${tPct2}</td>
+                                <td>${totals.m3}/${totals.a3}</td><td class="pct-cell">${tPct3}</td>
+                                <td>${totals.m4}/${totals.a4}</td><td class="pct-cell">${tPct4}</td>
+                                <td>${totals.ftm}/${totals.fta}</td><td class="pct-cell">${tPctFt}</td>
+                                <td>${totals.reb}</td><td>${totals.ast}</td><td>${totals.stl}</td><td>${totals.blk}</td><td>${totals.to}</td><td>${totals.pf}</td>
+                                <td class="pts-cell">${totals.pts}</td>
+                            </tr>
+                            <tr style="background:#131c31; color:#38bdf8;">
+                                <td colspan="2" class="player-col">TEAM PER-GAME AVG</td>
+                                <td colspan="2">${avg(totals.m2)}/${avg(totals.a2)}</td>
+                                <td colspan="2">${avg(totals.m3)}/${avg(totals.a3)}</td>
+                                <td colspan="2">${avg(totals.m4)}/${avg(totals.a4)}</td>
+                                <td colspan="2">${avg(totals.ftm)}/${avg(totals.fta)}</td>
+                                <td>${avg(totals.reb)}</td><td>${avg(totals.ast)}</td><td>${avg(totals.stl)}</td><td>${avg(totals.blk)}</td><td>${avg(totals.to)}</td><td>${avg(totals.pf)}</td>
+                                <td class="pts-cell">${avg(totals.pts)}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            `;
+        }
+
+        function renderTopLeadersTab() {
+            const container = document.getElementById("leadersContainer");
+            let allPlayers = [];
+
+            // Gather all players across all teams and calculate their totals/averages
+            const numGames = Math.max(1, matchArchive.length);
+
+            Object.keys(teamsData).forEach(teamKey => {
+                const team = teamsData[teamKey];
+                team.roster.forEach(player => {
+                    let pts=0, reb=0, ast=0, stl=0, blk=0, m3=0;
+                    
+                    // Aggregate from live + archived stats
+                    let statSources = [statsData, ...matchArchive.map(m => m.stats)];
+                    statSources.forEach(source => {
+                        let p2m=0, p3m=0, p4m=0, pftm=0, preb=0, past=0, pstl=0, pblk=0;
+                        Object.keys(source).forEach(k => {
+                            if (k.includes(player.id)) {
+                                const val = source[k];
+                                if (k.endsWith('_m2')) p2m += val;
+                                if (k.endsWith('_m3')) { p3m += val; m3 += val; }
+                                if (k.endsWith('_m4')) p4m += val;
+                                if (k.endsWith('_ftm')) pftm += val;
+                                if (k.endsWith('_reb')) preb += val;
+                                if (k.endsWith('_ast')) past += val;
+                                if (k.endsWith('_stl')) pstl += val;
+                                if (k.endsWith('_blk')) pblk += val;
+                            }
+                        });
+                        pts += (p2m * 2) + (p3m * 3) + (p4m * 4) + pftm;
+                        reb += preb; ast += past; stl += pstl; blk += pblk;
+                    });
+
+                    allPlayers.push({
+                        name: player.name,
+                        team: team.name,
+                        jersey: player.jersey,
+                        ptsAvg: pts / numGames,
+                        rebAvg: reb / numGames,
+                        astAvg: ast / numGames,
+                        stlAvg: stl / numGames,
+                        blkAvg: blk / numGames,
+                        m3Avg: m3 / numGames
+                    });
+                });
+            });
+
+            const makeLeaderTable = (title, key, unit) => {
+                const sorted = [...allPlayers].sort((a, b) => b[key] - a[key]).slice(0, 5);
+                let rows = "";
+                sorted.forEach((p, idx) => {
+                    rows += `<tr>
+                        <td><strong>#${idx + 1}</strong></td>
+                        <td class="player-col">${p.name} <span style="color:var(--text-muted); font-size:0.8rem;">(${p.team})</span></td>
+                        <td class="pts-cell">${p[key].toFixed(1)} ${unit}</td>
+                    </tr>`;
+                });
+                return `
+                    <div style="flex: 1; min-width: 280px; background:#0f172a; padding:12px; border-radius:10px; border:1px solid var(--border-color);">
+                        <h3 style="color:var(--accent-gold); margin-bottom:8px; font-size:1rem;">${title}</h3>
+                        <table class="stat-table">
+                            <thead><tr><th>Rank</th><th class="player-col">Player</th><th>Avg</th></tr></thead>
+                            <tbody>${rows || '<tr><td colspan="3">No stats recorded yet</td></tr>'}</tbody>
+                        </table>
+                    </div>
+                `;
+            };
+
+            container.innerHTML = `
+                <div style="display:flex; flex-wrap:wrap; gap:15px;">
+                    ${makeLeaderTable('🔥 Points Per Game (PPG)', 'ptsAvg', 'PTS')}
+                    ${makeLeaderTable('🏀 Rebounds Per Game (RPG)', 'rebAvg', 'REB')}
+                    ${makeLeaderTable('🎯 Assists Per Game (APG)', 'astAvg', 'AST')}
+                    ${makeLeaderTable(' stealing Steals Per Game (SPG)', 'stlAvg', 'STL')}
+                    ${makeLeaderTable('🧱 Blocks Per Game (BPG)', 'blkAvg', 'BLK')}
+                    ${makeLeaderTable('☄️ 3-Pointers Made / Game', 'm3Avg', '3PM')}
+                </div>
+            `;
         }
 
         function makeStepper(prefix, pId, statKey) {
@@ -852,7 +1117,6 @@
             });
 
             const pts = (m2 * 2) + (m3 * 3) + (m4 * 4) + ftm;
-
             const ptsEl = document.getElementById(`pts_${prefix}_${pId}`);
             if (ptsEl) ptsEl.textContent = pts;
 
@@ -1000,7 +1264,6 @@
         function getHeadersForFilter() {
             let h = "";
             const quarters = ['Q1', 'Q2', 'Q3', 'Q4'];
-
             quarters.forEach(q => {
                 if (currentQuarterFilter === 'ALL' || currentQuarterFilter === q) {
                     h += `<th>${q} 2M</th><th>${q} 2A</th><th>${q} 3M</th><th>${q} 3A</th><th>${q} 4M</th><th>${q} 4A</th><th>${q} FTM</th><th>${q} FTA</th>`;
@@ -1064,6 +1327,11 @@
 
             if (tabId === 'percentages-view') {
                 renderMatchup();
+            } else if (tabId === 'leaders-view') {
+                renderTopLeadersTab();
+            } else if (tabId.startsWith('team-')) {
+                const teamKey = tabId.replace('team-', '');
+                renderTeamStatsTab(teamKey);
             }
         }
 
