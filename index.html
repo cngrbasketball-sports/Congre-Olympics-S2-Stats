@@ -393,6 +393,11 @@
         .player-row-bench {
             opacity: 0.35;
             background-color: #0f172a !important;
+        }
+        
+        /* Disable only steppers/radio for bench players, keeping row interactive enough for the court checkbox */
+        .player-row-bench .stepper-unit, 
+        .player-row-bench input[type="radio"] {
             pointer-events: none;
         }
 
@@ -435,6 +440,7 @@
             border: 1px solid var(--border-color);
             cursor: pointer;
             color: var(--text-muted);
+            z-index: 5;
         }
 
         .oncourt-checkbox-label input {
@@ -453,6 +459,7 @@
             padding: 2px 4px;
             font-size: 0.8rem;
             font-weight: bold;
+            z-index: 5;
         }
 
         /* ENLARGED TOUCH STEPPERS */
