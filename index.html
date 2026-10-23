@@ -37,8 +37,8 @@
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
             background-color: var(--primary-bg);
             color: var(--text-light);
-            padding: 12px;
-            font-size: 15px;
+            padding: 8px;
+            font-size: 13px;
             overflow-x: hidden;
         }
 
@@ -48,18 +48,18 @@
             align-items: center;
             justify-content: space-between;
             background: linear-gradient(135deg, #0f172a, #1e293b);
-            padding: 12px 18px;
-            border-radius: 12px;
+            padding: 8px 12px;
+            border-radius: 10px;
             border: 2px solid var(--accent-gold);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-            margin-bottom: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin-bottom: 8px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
         }
 
         .header-logo {
-            width: 65px;
-            height: 65px;
+            width: 48px;
+            height: 48px;
             object-fit: cover;
             border-radius: 50%;
             border: 2px solid var(--accent-gold);
@@ -69,67 +69,67 @@
         .header-title-container {
             text-align: center;
             flex-grow: 1;
-            padding: 0 10px;
+            padding: 0 5px;
         }
 
         .header-title-container h1 {
             color: var(--accent-gold);
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .header-title-container p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 2px;
+            font-size: 0.85rem;
+            margin-top: 1px;
         }
 
         /* LIVE QUARTER SCOREBOARD BOX */
         .live-scoreboard-box {
             background: linear-gradient(135deg, #1e293b, #0f172a);
-            border: 2px solid var(--accent-gold);
-            border-radius: 10px;
-            padding: 12px 18px;
-            margin-bottom: 15px;
+            border: 1.5px solid var(--accent-gold);
+            border-radius: 8px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-around;
             align-items: center;
             flex-wrap: wrap;
-            gap: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
         .team-score-summary {
             text-align: center;
             flex: 1;
-            min-width: 200px;
+            min-width: 180px;
         }
 
         .team-score-summary h3 {
             color: var(--accent-gold);
-            font-size: 1.1rem;
-            margin-bottom: 4px;
+            font-size: 0.98rem;
+            margin-bottom: 2px;
         }
 
         .quarter-breakdown {
             display: flex;
             justify-content: center;
-            gap: 8px;
-            font-size: 0.85rem;
+            gap: 6px;
+            font-size: 0.78rem;
             color: var(--text-muted);
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .quarter-breakdown span {
             background: #0f172a;
-            padding: 2px 6px;
+            padding: 1px 5px;
             border-radius: 4px;
             border: 1px solid var(--border-color);
         }
 
         .running-total-score {
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: #4ade80;
         }
@@ -138,14 +138,15 @@
         .hotkey-banner {
             background: #0f172a;
             border: 1.5px solid var(--accent-blue);
-            padding: 10px 15px;
+            padding: 6px 12px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 8px;
+            font-size: 0.8rem;
         }
 
         /* NAVIGATION TABS */
@@ -153,12 +154,12 @@
             display: flex;
             flex-wrap: nowrap;
             overflow-x: auto;
-            gap: 8px;
+            gap: 6px;
             background: #0f172a;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 6px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             -webkit-overflow-scrolling: touch;
         }
 
@@ -174,14 +175,14 @@
             background: #1e293b;
             color: var(--text-light);
             border: 1px solid var(--border-color);
-            padding: 10px 14px;
-            border-radius: 8px;
+            padding: 6px 10px;
+            border-radius: 6px;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
+            gap: 6px;
+            font-size: 0.82rem;
             white-space: nowrap;
             flex-shrink: 0;
             transition: all 0.2s ease;
@@ -206,12 +207,12 @@
 
         .nav-btn.matchup-btn.active {
             background: #2563eb;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.7);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
         }
 
         .tab-icon {
-            width: 22px;
-            height: 22px;
+            width: 18px;
+            height: 18px;
             border-radius: 50%;
             object-fit: cover;
         }
@@ -231,40 +232,40 @@
             justify-content: space-between;
             align-items: center;
             background: #0f172a;
-            padding: 14px 18px;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
             border: 1px solid var(--border-color);
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 8px;
         }
 
         .team-select-box {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
             flex: 1;
-            min-width: 240px;
+            min-width: 200px;
         }
 
         .team-select-box select {
             width: 100%;
             background: #1e293b;
             color: #fff;
-            padding: 8px 12px;
-            border: 2px solid var(--accent-gold);
-            border-radius: 8px;
-            font-size: 1rem;
+            padding: 5px 8px;
+            border: 1.5px solid var(--accent-gold);
+            border-radius: 6px;
+            font-size: 0.88rem;
             font-weight: bold;
         }
 
         .versus-badge {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 900;
             color: var(--accent-gold);
-            padding: 4px 14px;
+            padding: 2px 10px;
             background: #1e293b;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
             margin: 0 auto;
         }
@@ -274,11 +275,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
+            gap: 6px;
             background: #0f172a;
-            padding: 10px 14px;
+            padding: 6px 10px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             border: 1px solid var(--border-color);
             overflow-x: auto;
             white-space: nowrap;
@@ -287,7 +288,7 @@
         .quarter-filters-group {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             overflow-x: auto;
         }
 
@@ -295,11 +296,11 @@
             background: #1e293b;
             color: #fff;
             border: 1px solid var(--border-color);
-            padding: 8px 14px;
-            border-radius: 6px;
+            padding: 5px 10px;
+            border-radius: 5px;
             font-weight: bold;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             flex-shrink: 0;
         }
 
@@ -313,16 +314,16 @@
         .matchup-grid-vertical {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 12px;
         }
 
         /* CARDS & TABLES */
         .team-card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 14px;
+            border-radius: 10px;
+            padding: 8px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
 
         .team-header-banner {
@@ -330,43 +331,44 @@
             align-items: center;
             justify-content: space-between;
             background: #0f172a;
-            padding: 10px 16px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border-left: 5px solid var(--accent-gold);
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border-left: 4px solid var(--accent-gold);
         }
 
         .team-info {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
 
         .team-header-logo {
-            width: 45px;
-            height: 45px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid var(--accent-gold);
+            border: 1.5px solid var(--accent-gold);
         }
 
         .team-header-banner h2 {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             color: var(--accent-gold);
             letter-spacing: 0.5px;
         }
 
         .team-score-badge {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             font-weight: 900;
             color: #4ade80;
             background: #1e293b;
-            padding: 4px 14px;
-            border-radius: 8px;
+            padding: 2px 10px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
         }
 
         .table-responsive {
+            width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
@@ -374,20 +376,21 @@
         table.stat-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.95rem;
+            font-size: 0.82rem;
             text-align: center;
+            table-layout: auto;
         }
 
         table.stat-table th, table.stat-table td {
             border: 1px solid var(--border-color);
-            padding: 6px 4px;
+            padding: 3px 2px;
         }
 
         table.stat-table th {
             background-color: #0f172a;
             color: var(--accent-gold);
             font-weight: bold;
-            font-size: 0.88rem;
+            font-size: 0.75rem;
             white-space: nowrap;
             position: sticky;
             top: 0;
@@ -410,18 +413,17 @@
 
         .player-col {
             text-align: left !important;
-            padding-left: 8px !important;
+            padding-left: 4px !important;
             white-space: nowrap;
-            min-width: 250px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.82rem;
             position: sticky;
             left: 0;
             background: #1e293b;
             z-index: 1;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
         }
 
         table.stat-table tr:nth-child(even) .player-col {
@@ -429,8 +431,8 @@
         }
 
         .player-col input[type="radio"] {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             cursor: pointer;
             accent-color: var(--accent-gold);
             flex-shrink: 0;
@@ -440,10 +442,10 @@
             display: inline-flex;
             align-items: center;
             gap: 2px;
-            font-size: 0.73rem;
+            font-size: 0.68rem;
             background: #0f172a;
-            padding: 2px 5px;
-            border-radius: 4px;
+            padding: 1px 4px;
+            border-radius: 3px;
             border: 1px solid var(--border-color);
             cursor: pointer;
             color: var(--text-muted);
@@ -452,40 +454,39 @@
 
         .oncourt-checkbox-label input {
             cursor: pointer;
-            width: 13px;
-            height: 13px;
+            width: 12px;
+            height: 12px;
             accent-color: var(--success-green);
         }
 
         .player-note-input {
-            width: 75px;
+            width: 55px;
             background: #0f172a;
             color: #38bdf8;
             border: 1px solid var(--border-color);
-            border-radius: 4px;
-            padding: 2px 4px;
-            font-size: 0.8rem;
+            border-radius: 3px;
+            padding: 1px 2px;
+            font-size: 0.72rem;
             font-weight: bold;
             z-index: 5;
         }
 
-        /* ENLARGED TOUCH STEPPERS */
+        /* COMPACT STEPPERS */
         .stepper-unit {
             display: inline-flex;
             align-items: center;
-            gap: 3px;
+            gap: 2px;
             background: #0f172a;
-            padding: 4px 6px;
-            border-radius: 6px;
-            border: 1.5px solid #334155;
-            min-width: 64px;
+            padding: 1px 3px;
+            border-radius: 4px;
+            border: 1px solid #334155;
             justify-content: center;
         }
 
         .stat-val {
-            width: 24px;
+            width: 16px;
             text-align: center;
-            font-size: 1.15rem;
+            font-size: 0.88rem;
             font-weight: 800;
             color: #fff;
         }
@@ -493,18 +494,18 @@
         .step-btns {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 1px;
         }
 
         .step-btn {
             background: #334155;
             color: #fff;
             border: none;
-            width: 22px;
-            height: 16px;
-            line-height: 14px;
-            font-size: 10px;
-            border-radius: 3px;
+            width: 15px;
+            height: 11px;
+            line-height: 9px;
+            font-size: 8px;
+            border-radius: 2px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -529,40 +530,40 @@
 
         .pts-cell {
             color: #4ade80 !important;
-            font-size: 1.15rem;
+            font-size: 0.95rem;
             font-weight: 900;
         }
 
         .pct-cell {
             color: #38bdf8;
             font-weight: 800;
-            font-size: 0.95rem;
+            font-size: 0.82rem;
         }
 
         /* ROSTER MANAGEMENT STYLES */
         .roster-card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 16px;
+            border-radius: 10px;
+            padding: 12px;
             border: 1px solid var(--border-color);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .roster-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 8px;
             border-bottom: 1px solid var(--border-color);
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
         }
 
         .roster-list {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 10px;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 8px;
         }
 
         .roster-item {
@@ -570,10 +571,10 @@
             align-items: center;
             justify-content: space-between;
             background: #0f172a;
-            padding: 10px 14px;
-            border-radius: 8px;
+            padding: 8px 10px;
+            border-radius: 6px;
             border: 1px solid var(--border-color);
-            font-size: 0.98rem;
+            font-size: 0.85rem;
         }
 
         .roster-item.inactive {
@@ -584,23 +585,23 @@
         .playing-toggle {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             font-weight: bold;
         }
 
         .playing-toggle input {
             cursor: pointer;
-            width: 18px;
-            height: 18px;
+            width: 15px;
+            height: 15px;
         }
 
         .actions-bar {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: flex-end;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             flex-wrap: wrap;
         }
 
@@ -608,11 +609,11 @@
             background: var(--card-bg);
             color: #fff;
             border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
         }
 
         .action-btn:active {
@@ -635,24 +636,26 @@
         .archive-selector {
             background: #1e293b;
             color: var(--accent-gold);
-            border: 2px solid var(--accent-gold);
-            padding: 8px 12px;
-            border-radius: 8px;
+            border: 1.5px solid var(--accent-gold);
+            padding: 6px 10px;
+            border-radius: 6px;
             font-weight: bold;
-            font-size: 0.95rem;
-            margin-bottom: 15px;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
         }
 
-        @media (max-width: 600px) {
-            body { padding: 8px; }
-            .header-logo { width: 50px; height: 50px; }
-            .header-title-container h1 { font-size: 1.25rem; }
-            .header-title-container p { font-size: 0.8rem; }
-            .team-header-banner h2 { font-size: 1.05rem; }
-            .team-score-badge { font-size: 1.2rem; padding: 2px 10px; }
-            .stepper-unit { min-width: 58px; padding: 2px 4px; }
-            .stat-val { font-size: 1rem; }
-            .step-btn { width: 20px; height: 14px; font-size: 9px; }
+        @media (max-width: 1024px) {
+            body { padding: 4px; font-size: 12px; }
+            .header-logo { width: 40px; height: 40px; }
+            .header-title-container h1 { font-size: 1.1rem; }
+            .header-title-container p { font-size: 0.75rem; }
+            .team-header-banner h2 { font-size: 0.95rem; }
+            .team-score-badge { font-size: 1.05rem; padding: 1px 8px; }
+            table.stat-table th, table.stat-table td { padding: 2px 1px; }
+            .stepper-unit { gap: 1px; padding: 1px 2px; }
+            .stat-val { font-size: 0.82rem; width: 14px; }
+            .step-btn { width: 13px; height: 10px; font-size: 7px; }
+            .player-note-input { width: 45px; font-size: 0.68rem; }
         }
 
         @media print {
@@ -686,7 +689,7 @@
             </div>
             <div class="running-total-score" id="homeTotalPts">0 PTS</div>
         </div>
-        <div style="font-size:1.5rem; font-weight:900; color:var(--accent-gold);">VS</div>
+        <div style="font-size:1.3rem; font-weight:900; color:var(--accent-gold);">VS</div>
         <div class="team-score-summary">
             <h3 id="awayTeamScoreLabel">AWAY TEAM</h3>
             <div class="quarter-breakdown">
@@ -702,8 +705,8 @@
     <!-- HOTKEY INSTRUCTION BANNER -->
     <div class="hotkey-banner">
         <span style="color:var(--accent-gold); font-weight:bold;">⚡ ACTIVE PLAYER: <span id="activePlayerIndicator" style="color:#38bdf8;">None Selected</span></span>
-        <span style="color:var(--text-light); font-size:0.83rem;">
-            <strong>[1]</strong> FT | <strong>[2]</strong> 2PT | <strong>[3]</strong> 3PT | <strong>[4]</strong> 4PT | <strong>[R]</strong> Reb | <strong>[A]</strong> Ast | <strong>[S]</strong> Stl | <strong>[B]</strong> Blk | <strong>[T]</strong> TO
+        <span style="color:var(--text-light); font-size:0.78rem;">
+            <strong>[2]</strong> 2M | <strong>[3]</strong> 3M | <strong>[4]</strong> 4M | <strong>[1]</strong> 1FTM | <strong>[R]</strong> REB | <strong>[A]</strong> AST | <strong>[S]</strong> STL | <strong>[B]</strong> BLK | <strong>[T]</strong> TO | <strong>[Q]</strong> 2A | <strong>[W]</strong> 3A | <strong>[E]</strong> 4A | <strong>[Z]</strong> 1FTA
         </span>
     </div>
 
@@ -748,14 +751,14 @@
 
         <div class="quarter-filter-bar">
             <div class="quarter-filters-group">
-                <span style="color:var(--text-muted); font-weight:bold; margin-right:5px; font-size:0.95rem;">QUARTER FILTER (ACTIVE FOR HOTKEYS):</span>
+                <span style="color:var(--text-muted); font-weight:bold; margin-right:5px; font-size:0.85rem;">QUARTER FILTER (ACTIVE FOR HOTKEYS):</span>
                 <button class="q-btn active" onclick="setQuarterView('ALL')">ALL (Q1 Default)</button>
                 <button class="q-btn" onclick="setQuarterView('Q1')">Q1</button>
                 <button class="q-btn" onclick="setQuarterView('Q2')">Q2</button>
                 <button class="q-btn" onclick="setQuarterView('Q3')">Q3</button>
                 <button class="q-btn" onclick="setQuarterView('Q4')">Q4</button>
             </div>
-            <button class="action-btn reset-match-btn" style="padding: 6px 12px; font-size: 0.85rem;" onclick="resetLiveMatchStats()">🔄 Reset Live Stats to 0</button>
+            <button class="action-btn reset-match-btn" style="padding: 4px 10px; font-size: 0.8rem;" onclick="resetLiveMatchStats()">🔄 Reset Live Stats to 0</button>
         </div>
 
         <div class="matchup-grid-vertical">
@@ -789,7 +792,6 @@
         let currentQuarterFilter = 'ALL';
         let selectedPlayerContext = null; 
         
-        // Preloaded with the exact games from stats.json preserving their original home/away structure and deduplicated
         let matchArchive = [
           {
             "id": 1700000000001,
@@ -799,52 +801,8 @@
             "homeName": "Arcom Steele",
             "awayName": "Urban Hoopers",
             "stats": {
-              "home_a6_q1_ftm": 14,
-              "home_a6_reb": 3,
-              "home_a6_ast": 2,
-              "home_a5_q1_ftm": 11,
-              "home_a5_reb": 7,
-              "home_a5_ast": 2,
-              "home_a5_blk": 1,
-              "home_a9_q1_ftm": 10,
-              "home_a9_reb": 5,
-              "home_a9_ast": 2,
-              "home_a26_q1_ftm": 9,
-              "home_a10_q1_ftm": 8,
-              "home_a10_reb": 2,
-              "home_a10_ast": 3,
-              "home_a10_stl": 2,
-              "home_a11_q1_ftm": 8,
-              "home_a11_reb": 1,
-              "home_a33_q1_ftm": 6,
-              "home_a33_reb": 6,
-              "home_a33_ast": 2,
-              "home_a30_q1_ftm": 3,
-              "home_a15_reb": 1,
-              "away_u33_q1_ftm": 17,
-              "away_u33_reb": 4,
-              "away_u9_q1_ftm": 15,
-              "away_u9_reb": 7,
-              "away_u5_q1_ftm": 13,
-              "away_u5_reb": 9,
-              "away_u5_ast": 4,
-              "away_u5_stl": 1,
-              "away_u5_blk": 1,
-              "away_u77_q1_ftm": 8,
-              "away_u77_reb": 3,
-              "away_u77_ast": 1,
-              "away_u77_stl": 1,
-              "away_u18_q1_ftm": 6,
-              "away_u18_reb": 3,
-              "away_u18_ast": 4,
-              "away_u18_stl": 1,
-              "away_u7_q1_ftm": 5,
-              "away_u6_q1_ftm": 4,
-              "away_u6_reb": 3,
-              "away_u8_q1_ftm": 3,
-              "away_u16_q1_ftm": 2,
-              "away_u16_reb": 5,
-              "away_u3_reb": 1
+              "home_a6_q1_ftm": 14, "home_a6_reb": 3, "home_a6_ast": 2, "home_a5_q1_ftm": 11, "home_a5_reb": 7, "home_a5_ast": 2, "home_a5_blk": 1, "home_a9_q1_ftm": 10, "home_a9_reb": 5, "home_a9_ast": 2, "home_a26_q1_ftm": 9, "home_a10_q1_ftm": 8, "home_a10_reb": 2, "home_a10_ast": 3, "home_a10_stl": 2, "home_a11_q1_ftm": 8, "home_a11_reb": 1, "home_a33_q1_ftm": 6, "home_a33_reb": 6, "home_a33_ast": 2, "home_a30_q1_ftm": 3, "home_a15_reb": 1,
+              "away_u33_q1_ftm": 17, "away_u33_reb": 4, "away_u9_q1_ftm": 15, "away_u9_reb": 7, "away_u5_q1_ftm": 13, "away_u5_reb": 9, "away_u5_ast": 4, "away_u5_stl": 1, "away_u5_blk": 1, "away_u77_q1_ftm": 8, "away_u77_reb": 3, "away_u77_ast": 1, "away_u77_stl": 1, "away_u18_q1_ftm": 6, "away_u18_reb": 3, "away_u18_ast": 4, "away_u18_stl": 1, "away_u7_q1_ftm": 5, "away_u6_q1_ftm": 4, "away_u6_reb": 3, "away_u8_q1_ftm": 3, "away_u16_q1_ftm": 2, "away_u16_reb": 5, "away_u3_reb": 1
             }
           },
           {
@@ -855,64 +813,8 @@
             "homeName": "Otits",
             "awayName": "Dragons",
             "stats": {
-              "home_o25_q1_ftm": 25,
-              "home_o25_reb": 4,
-              "home_o25_ast": 2,
-              "home_o25_stl": 3,
-              "home_o14_q1_ftm": 16,
-              "home_o14_reb": 3,
-              "home_o1_q1_ftm": 8,
-              "home_o1_reb": 6,
-              "home_o1_stl": 1,
-              "home_o23_q1_ftm": 5,
-              "home_o23_reb": 7,
-              "home_o23_ast": 1,
-              "home_o7_q1_ftm": 4,
-              "home_o7_reb": 1,
-              "home_o16_q1_ftm": 4,
-              "home_o16_ast": 2,
-              "home_o16_stl": 1,
-              "home_o2_q1_ftm": 3,
-              "home_o2_reb": 1,
-              "home_o2_ast": 2,
-              "home_o2_stl": 1,
-              "home_o89_q1_ftm": 3,
-              "home_o89_reb": 3,
-              "home_o4_q1_ftm": 2,
-              "home_o4_reb": 5,
-              "home_o4_stl": 1,
-              "home_o18_q1_ftm": 2,
-              "home_o18_reb": 5,
-              "home_o18_ast": 1,
-              "home_o22_q1_ftm": 2,
-              "home_o22_reb": 3,
-              "home_o22_ast": 2,
-              "home_o30_q1_ftm": 2,
-              "home_o30_reb": 2,
-              "away_d22_q1_ftm": 13,
-              "away_d22_reb": 3,
-              "away_d22_ast": 2,
-              "away_d22_stl": 1,
-              "away_d11_q1_ftm": 9,
-              "away_d11_reb": 5,
-              "away_d11_stl": 2,
-              "away_d14_q1_ftm": 6,
-              "away_d14_reb": 2,
-              "away_d14_stl": 1,
-              "away_d26_q1_ftm": 6,
-              "away_d26_reb": 5,
-              "away_d20_q1_ftm": 5,
-              "away_d20_reb": 2,
-              "away_d3_q1_ftm": 4,
-              "away_d3_reb": 2,
-              "away_d25_q1_ftm": 4,
-              "away_d25r_q1_ftm": 3,
-              "away_d25r_reb": 4,
-              "away_d42_q1_ftm": 3,
-              "away_d42_reb": 2,
-              "away_d42_stl": 1,
-              "away_d2_reb": 5,
-              "away_d13_reb": 3
+              "home_o25_q1_ftm": 25, "home_o25_reb": 4, "home_o25_ast": 2, "home_o25_stl": 3, "home_o14_q1_ftm": 16, "home_o14_reb": 3, "home_o1_q1_ftm": 8, "home_o1_reb": 6, "home_o1_stl": 1, "home_o23_q1_ftm": 5, "home_o23_reb": 7, "home_o23_ast": 1, "home_o7_q1_ftm": 4, "home_o7_reb": 1, "home_o16_q1_ftm": 4, "home_o16_ast": 2, "home_o16_stl": 1, "home_o2_q1_ftm": 3, "home_o2_reb": 1, "home_o2_ast": 2, "home_o2_stl": 1, "home_o89_q1_ftm": 3, "home_o89_reb": 3, "home_o4_q1_ftm": 2, "home_o4_reb": 5, "home_o4_stl": 1, "home_o18_q1_ftm": 2, "home_o18_reb": 5, "home_o18_ast": 1, "home_o22_q1_ftm": 2, "home_o22_reb": 3, "home_o22_ast": 2, "home_o30_q1_ftm": 2, "home_o30_reb": 2,
+              "away_d22_q1_ftm": 13, "away_d22_reb": 3, "away_d22_ast": 2, "away_d22_stl": 1, "away_d11_q1_ftm": 9, "away_d11_reb": 5, "away_d11_stl": 2, "away_d14_q1_ftm": 6, "away_d14_reb": 2, "away_d14_stl": 1, "away_d26_q1_ftm": 6, "away_d26_reb": 5, "away_d20_q1_ftm": 5, "away_d20_reb": 2, "away_d3_q1_ftm": 4, "away_d3_reb": 2, "away_d25_q1_ftm": 4, "away_d25r_q1_ftm": 3, "away_d25r_reb": 4, "away_d42_q1_ftm": 3, "away_d42_reb": 2, "away_d42_stl": 1, "away_d2_reb": 5, "away_d13_reb": 3
             }
           },
           {
@@ -923,49 +825,8 @@
             "homeName": "House of Ballers",
             "awayName": "Baldogiii",
             "stats": {
-              "home_h4_q1_ftm": 21,
-              "home_h4_reb": 18,
-              "home_h4_ast": 3,
-              "home_h67_q1_ftm": 21,
-              "home_h67_reb": 5,
-              "home_h67_ast": 3,
-              "home_h1_q1_ftm": 15,
-              "home_h1_reb": 3,
-              "home_h23_q1_ftm": 9,
-              "home_h23_reb": 6,
-              "home_h23_stl": 2,
-              "home_h20_q1_ftm": 7,
-              "home_h20_reb": 6,
-              "home_h20_ast": 3,
-              "home_h5_q1_ftm": 6,
-              "home_h5_reb": 3,
-              "home_h9_q1_ftm": 5,
-              "home_h9_reb": 4,
-              "home_h3_q1_ftm": 2,
-              "home_h3_reb": 1,
-              "home_h6_reb": 1,
-              "home_h7_reb": 1,
-              "home_h14_ast": 3,
-              "away_b12_q1_ftm": 26,
-              "away_b12_reb": 3,
-              "away_b12_ast": 3,
-              "away_b7_q1_ftm": 17,
-              "away_b7_reb": 2,
-              "away_b7_ast": 1,
-              "away_b3_q1_ftm": 14,
-              "away_b3_reb": 1,
-              "away_b3_ast": 2,
-              "away_b9_q1_ftm": 10,
-              "away_b9_reb": 3,
-              "away_b9_stl": 1,
-              "away_b6_q1_ftm": 5,
-              "away_b6_reb": 4,
-              "away_b6_ast": 1,
-              "away_b8_q1_ftm": 5,
-              "away_b8_reb": 1,
-              "away_b21_reb": 5,
-              "away_b21_ast": 1,
-              "away_b21_stl": 1
+              "home_h4_q1_ftm": 21, "home_h4_reb": 18, "home_h4_ast": 3, "home_h67_q1_ftm": 21, "home_h67_reb": 5, "home_h67_ast": 3, "home_h1_q1_ftm": 15, "home_h1_reb": 3, "home_h23_q1_ftm": 9, "home_h23_reb": 6, "home_h23_stl": 2, "home_h20_q1_ftm": 7, "home_h20_reb": 6, "home_h20_ast": 3, "home_h5_q1_ftm": 6, "home_h5_reb": 3, "home_h9_q1_ftm": 5, "home_h9_reb": 4, "home_h3_q1_ftm": 2, "home_h3_reb": 1, "home_h6_reb": 1, "home_h7_reb": 1, "home_h14_ast": 3,
+              "away_b12_q1_ftm": 26, "away_b12_reb": 3, "away_b12_ast": 3, "away_b7_q1_ftm": 17, "away_b7_reb": 2, "away_b7_ast": 1, "away_b3_q1_ftm": 14, "away_b3_reb": 1, "away_b3_ast": 2, "away_b9_q1_ftm": 10, "away_b9_reb": 3, "away_b9_stl": 1, "away_b6_q1_ftm": 5, "away_b6_reb": 4, "away_b6_ast": 1, "away_b8_q1_ftm": 5, "away_b8_reb": 1, "away_b21_reb": 5, "away_b21_ast": 1, "away_b21_stl": 1
             }
           },
           {
@@ -976,55 +837,8 @@
             "homeName": "True Baller",
             "awayName": "Total War",
             "stats": {
-              "home_t17_q1_ftm": 25,
-              "home_t17_reb": 8,
-              "home_t17_ast": 3,
-              "home_t4_q1_ftm": 17,
-              "home_t4_ast": 1,
-              "home_t11_q1_ftm": 16,
-              "home_t11_reb": 4,
-              "home_t11_ast": 2,
-              "home_t6_q1_ftm": 10,
-              "home_t6_reb": 5,
-              "home_t6_ast": 3,
-              "home_t20_q1_ftm": 7,
-              "home_t20_ast": 2,
-              "home_t20_stl": 1,
-              "home_t3_q1_ftm": 6,
-              "home_t15_q1_ftm": 6,
-              "home_t15_reb": 2,
-              "home_t15_ast": 1,
-              "home_t24_q1_ftm": 6,
-              "home_t55_q1_ftm": 2,
-              "home_t55_reb": 1,
-              "home_t55_stl": 1,
-              "home_t8_reb": 3,
-              "home_t8_ast": 2,
-              "away_w3_q1_ftm": 26,
-              "away_w3_reb": 3,
-              "away_w3_ast": 3,
-              "away_w3_stl": 1,
-              "away_w22_q1_ftm": 24,
-              "away_w22_reb": 4,
-              "away_w22_ast": 3,
-              "away_w22_stl": 1,
-              "away_w26_q1_ftm": 14,
-              "away_w26_reb": 1,
-              "away_w9_q1_ftm": 13,
-              "away_w9_reb": 4,
-              "away_w28_q1_ftm": 9,
-              "away_w28_reb": 2,
-              "away_w2_q1_ftm": 4,
-              "away_w2_reb": 5,
-              "away_w2_ast": 2,
-              "away_w11_q1_ftm": 4,
-              "away_w11_reb": 6,
-              "away_w11_ast": 3,
-              "away_w12_q1_ftm": 4,
-              "away_w18_q1_ftm": 4,
-              "away_w18_reb": 3,
-              "away_w18_ast": 2,
-              "away_w1_ast": 3
+              "home_t17_q1_ftm": 25, "home_t17_reb": 8, "home_t17_ast": 3, "home_t4_q1_ftm": 17, "home_t4_ast": 1, "home_t11_q1_ftm": 16, "home_t11_reb": 4, "home_t11_ast": 2, "home_t6_q1_ftm": 10, "home_t6_reb": 5, "home_t6_ast": 3, "home_t20_q1_ftm": 7, "home_t20_ast": 2, "home_t20_stl": 1, "home_t3_q1_ftm": 6, "home_t15_q1_ftm": 6, "home_t15_reb": 2, "home_t15_ast": 1, "home_t24_q1_ftm": 6, "home_t55_q1_ftm": 2, "home_t55_reb": 1, "home_t55_stl": 1, "home_t8_reb": 3, "home_t8_ast": 2,
+              "away_w3_q1_ftm": 26, "away_w3_reb": 3, "away_w3_ast": 3, "away_w3_stl": 1, "away_w22_q1_ftm": 24, "away_w22_reb": 4, "away_w22_ast": 3, "away_w22_stl": 1, "away_w26_q1_ftm": 14, "away_w26_reb": 1, "away_w9_q1_ftm": 13, "away_w9_reb": 4, "away_w28_q1_ftm": 9, "away_w28_reb": 2, "away_w2_q1_ftm": 4, "away_w2_reb": 5, "away_w2_ast": 2, "away_w11_q1_ftm": 4, "away_w11_reb": 6, "away_w11_ast": 3, "away_w12_q1_ftm": 4, "away_w18_q1_ftm": 4, "away_w18_reb": 3, "away_w18_ast": 2, "away_w1_ast": 3
             }
           },
           {
@@ -1035,61 +849,8 @@
             "homeName": "Arcom Steele",
             "awayName": "Baldogiii",
             "stats": {
-              "home_a5_q1_ftm": 22,
-              "home_a5_reb": 11,
-              "home_a5_ast": 2,
-              "home_a5_stl": 1,
-              "home_a9_q1_ftm": 19,
-              "home_a9_reb": 7,
-              "home_a9_ast": 2,
-              "home_a9_stl": 2,
-              "home_a11_q1_ftm": 13,
-              "home_a11_reb": 1,
-              "home_a11_ast": 1,
-              "home_a11_stl": 1,
-              "home_a18_q1_ftm": 11,
-              "home_a18_reb": 3,
-              "home_a18_ast": 1,
-              "home_a33_q1_ftm": 8,
-              "home_a33_reb": 3,
-              "home_a33_ast": 2,
-              "home_a15_q1_ftm": 5,
-              "home_a6_q1_ftm": 3,
-              "home_a6_reb": 2,
-              "home_a6_ast": 1,
-              "home_a6_stl": 1,
-              "home_a10_q1_ftm": 3,
-              "home_a10_reb": 2,
-              "home_a10_ast": 3,
-              "home_a26_q1_ftm": 1,
-              "home_a26_reb": 2,
-              "home_a30_q1_ftm": 1,
-              "home_a30_stl": 1,
-              "home_a1_reb": 2,
-              "away_b27_q1_ftm": 26,
-              "away_b27_reb": 11,
-              "away_b27_ast": 1,
-              "away_b12_q1_ftm": 19,
-              "away_b12_reb": 5,
-              "away_b12_ast": 4,
-              "away_b12_stl": 2,
-              "away_b9_q1_ftm": 17,
-              "away_b9_reb": 4,
-              "away_b9_ast": 2,
-              "away_b30_q1_ftm": 16,
-              "away_b30_reb": 1,
-              "away_b30_ast": 2,
-              "away_b3_q1_ftm": 7,
-              "away_b3_reb": 1,
-              "away_b3_stl": 1,
-              "away_b21_q1_ftm": 6,
-              "away_b21_reb": 5,
-              "away_b21_ast": 2,
-              "away_b21_stl": 1,
-              "away_b6_q1_ftm": 3,
-              "away_b6_reb": 3,
-              "away_b6_ast": 3,
-              "away_b8_q1_ftm": 1
+              "home_a5_q1_ftm": 22, "home_a5_reb": 11, "home_a5_ast": 2, "home_a5_stl": 1, "home_a9_q1_ftm": 19, "home_a9_reb": 7, "home_a9_ast": 2, "home_a9_stl": 2, "home_a11_q1_ftm": 13, "home_a11_reb": 1, "home_a11_ast": 1, "home_a11_stl": 1, "home_a18_q1_ftm": 11, "home_a18_reb": 3, "home_a18_ast": 1, "home_a33_q1_ftm": 8, "home_a33_reb": 3, "home_a33_ast": 2, "home_a15_q1_ftm": 5, "home_a6_q1_ftm": 3, "home_a6_reb": 2, "home_a6_ast": 1, "home_a6_stl": 1, "home_a10_q1_ftm": 3, "home_a10_reb": 2, "home_a10_ast": 3, "home_a26_q1_ftm": 1, "home_a26_reb": 2, "home_a30_q1_ftm": 1, "home_a30_stl": 1, "home_a1_reb": 2,
+              "away_b27_q1_ftm": 26, "away_b27_reb": 11, "away_b27_ast": 1, "away_b12_q1_ftm": 19, "away_b12_reb": 5, "away_b12_ast": 4, "away_b12_stl": 2, "away_b9_q1_ftm": 17, "away_b9_reb": 4, "away_b9_ast": 2, "away_b30_q1_ftm": 16, "away_b30_reb": 1, "away_b30_ast": 2, "away_b3_q1_ftm": 7, "away_b3_reb": 1, "away_b3_stl": 1, "away_b21_q1_ftm": 6, "away_b21_reb": 5, "away_b21_ast": 2, "away_b21_stl": 1, "away_b6_q1_ftm": 3, "away_b6_reb": 3, "away_b6_ast": 3, "away_b8_q1_ftm": 1
             }
           },
           {
@@ -1100,59 +861,8 @@
             "homeName": "Otits",
             "awayName": "Urban Hoopers",
             "stats": {
-              "home_o18_q1_ftm": 18,
-              "home_o18_reb": 3,
-              "home_o18_stl": 2,
-              "home_o1_q1_ftm": 15,
-              "home_o1_reb": 12,
-              "home_o1_ast": 3,
-              "home_o22_q1_ftm": 10,
-              "home_o22_reb": 4,
-              "home_o30_q1_ftm": 5,
-              "home_o23_q1_ftm": 4,
-              "home_o23_reb": 4,
-              "home_o23_ast": 1,
-              "home_o23_stl": 1,
-              "home_o2_q1_ftm": 2,
-              "home_o2_reb": 2,
-              "home_o2_ast": 1,
-              "home_o2_stl": 1,
-              "home_o4_q1_ftm": 2,
-              "home_o7_q1_ftm": 2,
-              "home_o7_reb": 2,
-              "home_o16_q1_ftm": 2,
-              "home_o16_reb": 1,
-              "away_u17_q1_ftm": 23,
-              "away_u17_reb": 4,
-              "away_u17_ast": 2,
-              "away_u17_stl": 2,
-              "away_u18_q1_ftm": 10,
-              "away_u18_reb": 2,
-              "away_u18_stl": 3,
-              "away_u9_q1_ftm": 8,
-              "away_u9_reb": 11,
-              "away_u9_ast": 1,
-              "away_u9_blk": 1,
-              "away_u1_q1_ftm": 6,
-              "away_u1_reb": 5,
-              "away_u1_blk": 2,
-              "away_u16_q1_ftm": 6,
-              "away_u16_reb": 1,
-              "away_u26_q1_ftm": 6,
-              "away_u26_reb": 5,
-              "away_u26_ast": 1,
-              "away_u5_q1_ftm": 4,
-              "away_u5_reb": 5,
-              "away_u5_ast": 3,
-              "away_u5_stl": 3,
-              "away_u5_blk": 1,
-              "away_u6_q1_ftm": 4,
-              "away_u6_reb": 1,
-              "away_u6_ast": 3,
-              "away_u6_stl": 3,
-              "away_u8_q1_ftm": 3,
-              "away_u8_reb": 6,
-              "away_u8_stl": 1
+              "home_o18_q1_ftm": 18, "home_o18_reb": 3, "home_o18_stl": 2, "home_o1_q1_ftm": 15, "home_o1_reb": 12, "home_o1_ast": 3, "home_o22_q1_ftm": 10, "home_o22_reb": 4, "home_o30_q1_ftm": 5, "home_o23_q1_ftm": 4, "home_o23_reb": 4, "home_o23_ast": 1, "home_o23_stl": 1, "home_o2_q1_ftm": 2, "home_o2_reb": 2, "home_o2_ast": 1, "home_o2_stl": 1, "home_o4_q1_ftm": 2, "home_o7_q1_ftm": 2, "home_o7_reb": 2, "home_o16_q1_ftm": 2, "home_o16_reb": 1,
+              "away_u17_q1_ftm": 23, "away_u17_reb": 4, "away_u17_ast": 2, "away_u17_stl": 2, "away_u18_q1_ftm": 10, "away_u18_reb": 2, "away_u18_stl": 3, "away_u9_q1_ftm": 8, "away_u9_reb": 11, "away_u9_ast": 1, "away_u9_blk": 1, "away_u1_q1_ftm": 6, "away_u1_reb": 5, "away_u1_blk": 2, "away_u16_q1_ftm": 6, "away_u16_reb": 1, "away_u26_q1_ftm": 6, "away_u26_reb": 5, "away_u26_ast": 1, "away_u5_q1_ftm": 4, "away_u5_reb": 5, "away_u5_ast": 3, "away_u5_stl": 3, "away_u5_blk": 1, "away_u6_q1_ftm": 4, "away_u6_reb": 1, "away_u6_ast": 3, "away_u6_stl": 3, "away_u8_q1_ftm": 3, "away_u8_reb": 6, "away_u8_stl": 1
             }
           },
           {
@@ -1163,53 +873,8 @@
             "homeName": "House of Ballers",
             "awayName": "Total War",
             "stats": {
-              "home_h67_q1_ftm": 35,
-              "home_h67_reb": 3,
-              "home_h67_ast": 3,
-              "home_h67_stl": 2,
-              "home_h23_q1_ftm": 17,
-              "home_h23_reb": 4,
-              "home_h23_ast": 3,
-              "home_h23_stl": 2,
-              "home_h55_q1_ftm": 16,
-              "home_h55_reb": 1,
-              "home_h55_ast": 1,
-              "home_h3_q1_ftm": 12,
-              "home_h3_reb": 6,
-              "home_h3_ast": 4,
-              "home_h3_stl": 1,
-              "home_h4_q1_ftm": 12,
-              "home_h4_reb": 12,
-              "home_h4_stl": 1,
-              "home_h4_blk": 1,
-              "home_h5_q1_ftm": 3,
-              "home_h5_reb": 5,
-              "home_h5_ast": 1,
-              "home_h7_q1_ftm": 2,
-              "home_h1_reb": 3,
-              "away_w2_q1_ftm": 18,
-              "away_w2_reb": 7,
-              "away_w9_q1_ftm": 15,
-              "away_w9_reb": 2,
-              "away_w9_ast": 3,
-              "away_w22_q1_ftm": 12,
-              "away_w11_q1_ftm": 9,
-              "away_w11_reb": 8,
-              "away_w11_ast": 3,
-              "away_w11_blk": 1,
-              "away_w3_q1_ftm": 7,
-              "away_w3_reb": 1,
-              "away_w18_q1_ftm": 3,
-              "away_w18_reb": 1,
-              "away_w18_ast": 1,
-              "away_w12_q1_ftm": 2,
-              "away_w12_reb": 1,
-              "away_w12_ast": 1,
-              "away_w24_q1_ftm": 2,
-              "away_w24_reb": 7,
-              "away_w24_stl": 1,
-              "away_w6_reb": 3,
-              "away_w6_ast": 3
+              "home_h67_q1_ftm": 35, "home_h67_reb": 3, "home_h67_ast": 3, "home_h67_stl": 2, "home_h23_q1_ftm": 17, "home_h23_reb": 4, "home_h23_ast": 3, "home_h23_stl": 2, "home_h55_q1_ftm": 16, "home_h55_reb": 1, "home_h55_ast": 1, "home_h3_q1_ftm": 12, "home_h3_reb": 6, "home_h3_ast": 4, "home_h3_stl": 1, "home_h4_q1_ftm": 12, "home_h4_reb": 12, "home_h4_stl": 1, "home_h4_blk": 1, "home_h5_q1_ftm": 3, "home_h5_reb": 5, "home_h5_ast": 1, "home_h7_q1_ftm": 2, "home_h1_reb": 3,
+              "away_w2_q1_ftm": 18, "away_w2_reb": 7, "away_w9_q1_ftm": 15, "away_w9_reb": 2, "away_w9_ast": 3, "away_w22_q1_ftm": 12, "away_w11_q1_ftm": 9, "away_w11_reb": 8, "away_w11_ast": 3, "away_w11_blk": 1, "away_w3_q1_ftm": 7, "away_w3_reb": 1, "away_w18_q1_ftm": 3, "away_w18_reb": 1, "away_w18_ast": 1, "away_w12_q1_ftm": 2, "away_w12_reb": 1, "away_w12_ast": 1, "away_w24_q1_ftm": 2, "away_w24_reb": 7, "away_w24_stl": 1, "away_w6_reb": 3, "away_w6_ast": 3
             }
           },
           {
@@ -1220,56 +885,8 @@
             "homeName": "True Baller",
             "awayName": "Dragons",
             "stats": {
-              "home_t4_q1_ftm": 19,
-              "home_t4_reb": 3,
-              "home_t4_ast": 2,
-              "home_t6_q1_ftm": 13,
-              "home_t6_reb": 5,
-              "home_t6_ast": 3,
-              "home_t17_q1_ftm": 13,
-              "home_t17_reb": 8,
-              "home_t17_ast": 1,
-              "home_t17_stl": 2,
-              "home_t20_q1_ftm": 12,
-              "home_t20_reb": 3,
-              "home_t20_ast": 3,
-              "home_t12_q1_ftm": 10,
-              "home_t12_reb": 6,
-              "home_t12_stl": 1,
-              "home_t11_q1_ftm": 7,
-              "home_t11_reb": 3,
-              "home_t11_ast": 1,
-              "home_t11_stl": 1,
-              "home_t24_q1_ftm": 7,
-              "home_t7_q1_ftm": 5,
-              "home_t7_reb": 3,
-              "home_t3_q1_ftm": 3,
-              "home_t15_ast": 1,
-              "away_d22_q1_ftm": 19,
-              "away_d22_reb": 3,
-              "away_d1_q1_ftm": 12,
-              "away_d1_reb": 6,
-              "away_d1_ast": 2,
-              "away_d32_q1_ftm": 11,
-              "away_d32_reb": 1,
-              "away_d32_ast": 1,
-              "away_d18_q1_ftm": 7,
-              "away_d18_stl": 1,
-              "away_d20_q1_ftm": 7,
-              "away_d20_reb": 1,
-              "away_d20_ast": 1,
-              "away_d13_q1_ftm": 5,
-              "away_d13_reb": 1,
-              "away_d13_ast": 2,
-              "away_d14_q1_ftm": 4,
-              "away_d14_ast": 1,
-              "away_d42_q1_ftm": 4,
-              "away_d42_reb": 4,
-              "away_d42_ast": 2,
-              "away_d25_q1_ftm": 2,
-              "away_d25_reb": 4,
-              "away_d2_reb": 1,
-              "away_d11_ast": 2
+              "home_t4_q1_ftm": 19, "home_t4_reb": 3, "home_t4_ast": 2, "home_t6_q1_ftm": 13, "home_t6_reb": 5, "home_t6_ast": 3, "home_t17_q1_ftm": 13, "home_t17_reb": 8, "home_t17_ast": 1, "home_t17_stl": 2, "home_t20_q1_ftm": 12, "home_t20_reb": 3, "home_t20_ast": 3, "home_t12_q1_ftm": 10, "home_t12_reb": 6, "home_t12_stl": 1, "home_t11_q1_ftm": 7, "home_t11_reb": 3, "home_t11_ast": 1, "home_t11_stl": 1, "home_t24_q1_ftm": 7, "home_t7_q1_ftm": 5, "home_t7_reb": 3, "home_t3_q1_ftm": 3, "home_t15_ast": 1,
+              "away_d22_q1_ftm": 19, "away_d22_reb": 3, "away_d1_q1_ftm": 12, "away_d1_reb": 6, "away_d1_ast": 2, "away_d32_q1_ftm": 11, "away_d32_reb": 1, "away_d32_ast": 1, "away_d18_q1_ftm": 7, "away_d18_stl": 1, "away_d20_q1_ftm": 7, "away_d20_reb": 1, "away_d20_ast": 1, "away_d13_q1_ftm": 5, "away_d13_reb": 1, "away_d13_ast": 2, "away_d14_q1_ftm": 4, "away_d14_ast": 1, "away_d42_q1_ftm": 4, "away_d42_reb": 4, "away_d42_ast": 2, "away_d25_q1_ftm": 2, "away_d25_reb": 4, "away_d2_reb": 1, "away_d11_ast": 2
             }
           },
           {
@@ -1280,58 +897,8 @@
             "homeName": "Arcom Steele",
             "awayName": "Total War",
             "stats": {
-              "home_a5_q1_ftm": 30,
-              "home_a5_reb": 8,
-              "home_a5_ast": 3,
-              "home_a5_stl": 2,
-              "home_a9_q1_ftm": 16,
-              "home_a9_reb": 10,
-              "home_a9_ast": 3,
-              "home_a9_stl": 1,
-              "home_a9_blk": 1,
-              "home_a6_q1_ftm": 13,
-              "home_a6_reb": 5,
-              "home_a6_ast": 4,
-              "home_a10_q1_ftm": 10,
-              "home_a10_reb": 5,
-              "home_a10_ast": 3,
-              "home_a10_stl": 5,
-              "home_a11_q1_ftm": 7,
-              "home_a11_reb": 3,
-              "home_a33_q1_ftm": 6,
-              "home_a33_reb": 3,
-              "home_a33_ast": 5,
-              "home_a33_stl": 2,
-              "home_a26_q1_ftm": 3,
-              "home_a26_reb": 7,
-              "home_a26_stl": 1,
-              "home_a15_q1_ftm": 2,
-              "home_a15_reb": 1,
-              "home_a1_reb": 2,
-              "home_a8_reb": 2,
-              "away_w3_q1_ftm": 18,
-              "away_w11_q1_ftm": 16,
-              "away_w11_reb": 10,
-              "away_w11_ast": 4,
-              "away_w11_stl": 1,
-              "away_w26_q1_ftm": 16,
-              "away_w26_reb": 13,
-              "away_w26_ast": 4,
-              "away_w26_stl": 1,
-              "away_w26_blk": 1,
-              "away_w28_q1_ftm": 13,
-              "away_w28_reb": 4,
-              "away_w28_ast": 1,
-              "away_w28_stl": 3,
-              "away_w2_q1_ftm": 11,
-              "away_w2_reb": 10,
-              "away_w2_ast": 5,
-              "away_w2_stl": 2,
-              "away_w6_reb": 2,
-              "away_w6_ast": 1,
-              "away_w18_reb": 2,
-              "away_w18_ast": 1,
-              "away_w18_stl": 1
+              "home_a5_q1_ftm": 30, "home_a5_reb": 8, "home_a5_ast": 3, "home_a5_stl": 2, "home_a9_q1_ftm": 16, "home_a9_reb": 10, "home_a9_ast": 3, "home_a9_stl": 1, "home_a9_blk": 1, "home_a6_q1_ftm": 13, "home_a6_reb": 5, "home_a6_ast": 4, "home_a10_q1_ftm": 10, "home_a10_reb": 5, "home_a10_ast": 3, "home_a10_stl": 5, "home_a11_q1_ftm": 7, "home_a11_reb": 3, "home_a33_q1_ftm": 6, "home_a33_reb": 3, "home_a33_ast": 5, "home_a33_stl": 2, "home_a26_q1_ftm": 3, "home_a26_reb": 7, "home_a26_stl": 1, "home_a15_q1_ftm": 2, "home_a15_reb": 1, "home_a1_reb": 2, "home_a8_reb": 2,
+              "away_w3_q1_ftm": 18, "away_w11_q1_ftm": 16, "away_w11_reb": 10, "away_w11_ast": 4, "away_w11_stl": 1, "away_w26_q1_ftm": 16, "away_w26_reb": 13, "away_w26_ast": 4, "away_w26_stl": 1, "away_w26_blk": 1, "away_w28_q1_ftm": 13, "away_w28_reb": 4, "away_w28_ast": 1, "away_w28_stl": 3, "away_w2_q1_ftm": 11, "away_w2_reb": 10, "away_w2_ast": 5, "away_w2_stl": 2, "away_w6_reb": 2, "away_w6_ast": 1, "away_w18_reb": 2, "away_w18_ast": 1, "away_w18_stl": 1
             }
           },
           {
@@ -1342,55 +909,8 @@
             "homeName": "Otits",
             "awayName": "True Baller",
             "stats": {
-              "home_o18_q1_ftm": 30,
-              "home_o18_reb": 4,
-              "home_o18_ast": 5,
-              "home_o18_stl": 2,
-              "home_o1_q1_ftm": 27,
-              "home_o1_reb": 20,
-              "home_o1_ast": 6,
-              "home_o1_stl": 1,
-              "home_o4_q1_ftm": 27,
-              "home_o4_reb": 9,
-              "home_o4_ast": 4,
-              "home_o4_stl": 1,
-              "home_o4_blk": 1,
-              "home_o22_q1_ftm": 8,
-              "home_o22_reb": 7,
-              "home_o22_ast": 2,
-              "home_o22_stl": 1,
-              "home_o30_q1_ftm": 5,
-              "home_o30_reb": 3,
-              "home_o30_ast": 2,
-              "home_o30_blk": 1,
-              "home_o89_q1_ftm": 2,
-              "home_o89_reb": 10,
-              "home_o89_ast": 4,
-              "home_o89_stl": 1,
-              "home_o16_reb": 1,
-              "home_o16_ast": 5,
-              "home_o16_stl": 2,
-              "away_t17_q1_ftm": 34,
-              "away_t17_reb": 10,
-              "away_t17_ast": 4,
-              "away_t17_stl": 1,
-              "away_t20_q1_ftm": 21,
-              "away_t20_reb": 3,
-              "away_t20_ast": 5,
-              "away_t20_stl": 2,
-              "away_t20_blk": 1,
-              "away_t24_q1_ftm": 12,
-              "away_t24_reb": 3,
-              "away_t24_stl": 1,
-              "away_t24_blk": 1,
-              "away_t11_q1_ftm": 10,
-              "away_t11_reb": 1,
-              "away_t11_ast": 1,
-              "away_t11_stl": 1,
-              "away_t12_q1_ftm": 8,
-              "away_t12_reb": 8,
-              "away_t12_ast": 3,
-              "away_t12_stl": 4
+              "home_o18_q1_ftm": 30, "home_o18_reb": 4, "home_o18_ast": 5, "home_o18_stl": 2, "home_o1_q1_ftm": 27, "home_o1_reb": 20, "home_o1_ast": 6, "home_o1_stl": 1, "home_o4_q1_ftm": 27, "home_o4_reb": 9, "home_o4_ast": 4, "home_o4_stl": 1, "home_o4_blk": 1, "home_o22_q1_ftm": 8, "home_o22_reb": 7, "home_o22_ast": 2, "home_o22_stl": 1, "home_o30_q1_ftm": 5, "home_o30_reb": 3, "home_o30_ast": 2, "home_o30_blk": 1, "home_o89_q1_ftm": 2, "home_o89_reb": 10, "home_o89_ast": 4, "home_o89_stl": 1, "home_o16_reb": 1, "home_o16_ast": 5, "home_o16_stl": 2,
+              "away_t17_q1_ftm": 34, "away_t17_reb": 10, "away_t17_ast": 4, "away_t17_stl": 1, "away_t20_q1_ftm": 21, "away_t20_reb": 3, "away_t20_ast": 5, "away_t20_stl": 2, "away_t20_blk": 1, "away_t24_q1_ftm": 12, "away_t24_reb": 3, "away_t24_stl": 1, "away_t24_blk": 1, "away_t11_q1_ftm": 10, "away_t11_reb": 1, "away_t11_ast": 1, "away_t11_stl": 1, "away_t12_q1_ftm": 8, "away_t12_reb": 8, "away_t12_ast": 3, "away_t12_stl": 4
             }
           },
           {
@@ -1401,61 +921,8 @@
             "homeName": "House of Ballers",
             "awayName": "Dragons",
             "stats": {
-              "home_h67_q1_ftm": 28,
-              "home_h67_reb": 7,
-              "home_h67_ast": 3,
-              "home_h67_stl": 1,
-              "home_h67_blk": 1,
-              "home_h23_q1_ftm": 25,
-              "home_h23_reb": 6,
-              "home_h23_ast": 4,
-              "home_h23_stl": 2,
-              "home_h5_q1_ftm": 16,
-              "home_h5_reb": 8,
-              "home_h5_ast": 9,
-              "home_h5_stl": 1,
-              "home_h7_q1_ftm": 9,
-              "home_h7_reb": 7,
-              "home_h7_ast": 3,
-              "home_h7_stl": 1,
-              "home_h3_q1_ftm": 7,
-              "home_h3_reb": 8,
-              "home_h3_ast": 1,
-              "home_h3_stl": 2,
-              "home_h10_q1_ftm": 7,
-              "home_h10_reb": 7,
-              "home_h10_stl": 4,
-              "away_d20_q1_ftm": 21,
-              "away_d20_reb": 6,
-              "away_d20_ast": 4,
-              "away_d42_q1_ftm": 17,
-              "away_d42_reb": 11,
-              "away_d42_ast": 1,
-              "away_d14_q1_ftm": 10,
-              "away_d14_reb": 4,
-              "away_d14_ast": 2,
-              "away_d14_stl": 1,
-              "away_d32_q1_ftm": 10,
-              "away_d32_reb": 8,
-              "away_d22_q1_ftm": 6,
-              "away_d22_ast": 1,
-              "away_d25r_q1_ftm": 5,
-              "away_d25r_reb": 7,
-              "away_d25r_ast": 3,
-              "away_d25r_stl": 2,
-              "away_d3_q1_ftm": 5,
-              "away_d3_reb": 5,
-              "away_d11_q1_ftm": 5,
-              "away_d11_reb": 3,
-              "away_d25_q1_ftm": 2,
-              "away_d25_reb": 5,
-              "away_d25_ast": 1,
-              "away_d25_stl": 1,
-              "away_d2_reb": 4,
-              "away_d13_reb": 1,
-              "away_d18_reb": 5,
-              "away_d18_ast": 1,
-              "away_d18_stl": 2
+              "home_h67_q1_ftm": 28, "home_h67_reb": 7, "home_h67_ast": 3, "home_h67_stl": 1, "home_h67_blk": 1, "home_h23_q1_ftm": 25, "home_h23_reb": 6, "home_h23_ast": 4, "home_h23_stl": 2, "home_h5_q1_ftm": 16, "home_h5_reb": 8, "home_h5_ast": 9, "home_h5_stl": 1, "home_h7_q1_ftm": 9, "home_h7_reb": 7, "home_h7_ast": 3, "home_h7_stl": 1, "home_h3_q1_ftm": 7, "home_h3_reb": 8, "home_h3_ast": 1, "home_h3_stl": 2, "home_h10_q1_ftm": 7, "home_h10_reb": 7, "home_h10_stl": 4,
+              "away_d20_q1_ftm": 21, "away_d20_reb": 6, "away_d20_ast": 4, "away_d42_q1_ftm": 17, "away_d42_reb": 11, "away_d42_ast": 1, "away_d14_q1_ftm": 10, "away_d14_reb": 4, "away_d14_ast": 2, "away_d14_stl": 1, "away_d32_q1_ftm": 10, "away_d32_reb": 8, "away_d22_q1_ftm": 6, "away_d22_ast": 1, "away_d25r_q1_ftm": 5, "away_d25r_reb": 7, "away_d25r_ast": 3, "away_d25r_stl": 2, "away_d3_q1_ftm": 5, "away_d3_reb": 5, "away_d11_q1_ftm": 5, "away_d11_reb": 3, "away_d25_q1_ftm": 2, "away_d25_reb": 5, "away_d25_ast": 1, "away_d25_stl": 1, "away_d2_reb": 4, "away_d13_reb": 1, "away_d18_reb": 5, "away_d18_ast": 1, "away_d18_stl": 2
             }
           },
           {
@@ -1466,62 +933,8 @@
             "homeName": "Urban Hoopers",
             "awayName": "Baldogiii",
             "stats": {
-              "home_u77_q1_ftm": 17,
-              "home_u77_reb": 4,
-              "home_u77_ast": 4,
-              "home_u77_stl": 1,
-              "home_u6_q1_ftm": 13,
-              "home_u6_reb": 4,
-              "home_u6_ast": 6,
-              "home_u6_stl": 4,
-              "home_u1_q1_ftm": 10,
-              "home_u1_reb": 1,
-              "home_u1_ast": 2,
-              "home_u5_q1_ftm": 10,
-              "home_u5_reb": 11,
-              "home_u5_ast": 2,
-              "home_u9_q1_ftm": 10,
-              "home_u9_reb": 7,
-              "home_u9_ast": 2,
-              "home_u9_stl": 1,
-              "home_u18_q1_ftm": 9,
-              "home_u18_reb": 7,
-              "home_u18_ast": 5,
-              "home_u18_stl": 2,
-              "home_u16_q1_ftm": 8,
-              "home_u16_reb": 12,
-              "home_u16_stl": 1,
-              "home_u8_q1_ftm": 5,
-              "home_u8_ast": 2,
-              "home_u8_stl": 2,
-              "home_u7_reb": 2,
-              "home_u7_ast": 2,
-              "home_u7_stl": 2,
-              "home_u17_ast": 1,
-              "away_b27_q1_ftm": 28,
-              "away_b27_reb": 6,
-              "away_b27_ast": 3,
-              "away_b27_stl": 2,
-              "away_b30_q1_ftm": 15,
-              "away_b30_reb": 7,
-              "away_b30_ast": 1,
-              "away_b2_q1_ftm": 8,
-              "away_b2_reb": 5,
-              "away_b2_ast": 3,
-              "away_b6_q1_ftm": 8,
-              "away_b6_reb": 6,
-              "away_b6_ast": 1,
-              "away_b12_q1_ftm": 8,
-              "away_b12_reb": 5,
-              "away_b12_ast": 6,
-              "away_b12_stl": 5,
-              "away_b21_q1_ftm": 4,
-              "away_b21_reb": 8,
-              "away_b21_ast": 1,
-              "away_b21_stl": 2,
-              "away_b7_q1_ftm": 2,
-              "away_b7_reb": 3,
-              "away_b7_ast": 1
+              "home_u77_q1_ftm": 17, "home_u77_reb": 4, "home_u77_ast": 4, "home_u77_stl": 1, "home_u6_q1_ftm": 13, "home_u6_reb": 4, "home_u6_ast": 6, "home_u6_stl": 4, "home_u1_q1_ftm": 10, "home_u1_reb": 1, "home_u1_ast": 2, "home_u5_q1_ftm": 10, "home_u5_reb": 11, "home_u5_ast": 2, "home_u9_q1_ftm": 10, "home_u9_reb": 7, "home_u9_ast": 2, "home_u9_stl": 1, "home_u18_q1_ftm": 9, "home_u18_reb": 7, "home_u18_ast": 5, "home_u18_stl": 2, "home_u16_q1_ftm": 8, "home_u16_reb": 12, "home_u16_stl": 1, "home_u8_q1_ftm": 5, "home_u8_ast": 2, "home_u8_stl": 2, "home_u7_reb": 2, "home_u7_ast": 2, "home_u7_stl": 2, "home_u17_ast": 1,
+              "away_b27_q1_ftm": 28, "away_b27_reb": 6, "away_b27_ast": 3, "away_b27_stl": 2, "away_b30_q1_ftm": 15, "away_b30_reb": 7, "away_b30_ast": 1, "away_b2_q1_ftm": 8, "away_b2_reb": 5, "away_b2_ast": 3, "away_b6_q1_ftm": 8, "away_b6_reb": 6, "away_b6_ast": 1, "away_b12_q1_ftm": 8, "away_b12_reb": 5, "away_b12_ast": 6, "away_b12_stl": 5, "away_b21_q1_ftm": 4, "away_b21_reb": 8, "away_b21_ast": 1, "away_b21_stl": 2, "away_b7_q1_ftm": 2, "away_b7_reb": 3, "away_b7_ast": 1
             }
           }
         ];
@@ -1780,19 +1193,13 @@
             if (!onCourtPlayers[prefix]) onCourtPlayers[prefix] = {};
             onCourtPlayers[prefix][pId] = !onCourtPlayers[prefix][pId];
             
-            const row = document.getElementById(`row_${prefix}_${pId}`);
-            if (row) {
-                if (onCourtPlayers[prefix][pId]) {
-                    row.classList.remove('player-row-bench');
-                } else {
-                    row.classList.add('player-row-bench');
-                    if (selectedPlayerContext && selectedPlayerContext.pId === pId) {
-                        selectedPlayerContext = null;
-                        document.getElementById("activePlayerIndicator").textContent = "None Selected";
-                        document.getElementById("activePlayerIndicator").style.color = "#38bdf8";
-                    }
-                }
+            if (!onCourtPlayers[prefix][pId] && selectedPlayerContext && selectedPlayerContext.pId === pId) {
+                selectedPlayerContext = null;
+                document.getElementById("activePlayerIndicator").textContent = "None Selected";
+                document.getElementById("activePlayerIndicator").style.color = "#38bdf8";
             }
+            
+            renderMatchup();
             saveToLocalStorage();
         }
 
@@ -1813,6 +1220,11 @@
                 indicator.textContent = playerName;
                 indicator.style.color = "#4ade80";
             }
+            // Defocus inputs/radios so key presses immediately trigger global hotkeys without needing extra clicks
+            if (document.activeElement) {
+                document.activeElement.blur();
+            }
+            document.body.focus();
             saveToLocalStorage();
         }
 
@@ -1854,6 +1266,18 @@
                 } else if (key === 't') {
                     e.preventDefault();
                     stepStat(prefix, pId, 'to', 1);
+                } else if (key === 'q') {
+                    e.preventDefault();
+                    stepStat(prefix, pId, `${qKey}_a2`, 1);
+                } else if (key === 'w') {
+                    e.preventDefault();
+                    stepStat(prefix, pId, `${qKey}_a3`, 1);
+                } else if (key === 'e') {
+                    e.preventDefault();
+                    stepStat(prefix, pId, `${qKey}_a4`, 1);
+                } else if (key === 'z') {
+                    e.preventDefault();
+                    stepStat(prefix, pId, `${qKey}_fta`, 1);
                 }
             });
         }
@@ -1968,15 +1392,15 @@
                 viewDiv.id = `team-${teamKey}`;
                 viewDiv.className = "view-panel";
                 viewDiv.innerHTML = `
-                    <div class="team-card" style="margin-bottom:15px;">
+                    <div class="team-card" style="margin-bottom:12px;">
                         <div class="team-header-banner">
-                            <div style="display:flex; align-items:center; gap:12px;">
-                                <img src="${team.logo}" style="width:45px; height:45px; border-radius:50%; object-fit:cover; border:2px solid var(--accent-gold);">
+                            <div style="display:flex; align-items:center; gap:10px;">
+                                <img src="${team.logo}" style="width:36px; height:36px; border-radius:50%; object-fit:cover; border:1.5px solid var(--accent-gold);">
                                 <h2 style="color:var(--accent-gold);">${team.name} — TEAM STATS & ARCHIVES</h2>
                             </div>
                         </div>
-                        <div style="margin-bottom:12px;">
-                            <label style="color:var(--text-muted); font-weight:bold; display:block; margin-bottom:5px;">📂 SELECT MATCH VIEW / ARCHIVE:</label>
+                        <div style="margin-bottom:10px;">
+                            <label style="color:var(--text-muted); font-weight:bold; display:block; margin-bottom:4px;">📂 SELECT MATCH VIEW / ARCHIVE:</label>
                             <select id="archiveSelect_${teamKey}" class="archive-selector" onchange="renderTeamStatsTab('${teamKey}')">
                                 ${archiveOptions}
                             </select>
@@ -2075,7 +1499,7 @@
             const tPctFt = totals.fta > 0 ? Math.round((totals.ftm/totals.fta)*100)+'%' : '0%';
 
             return `
-                <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:10px;">Mode: <strong>${subtitle}</strong> (Averaged across ${gamesCount} game(s))</p>
+                <p style="color:var(--text-muted); font-size:0.85rem; margin-bottom:8px;">Mode: <strong>${subtitle}</strong> (Averaged across ${gamesCount} game(s))</p>
                 <div class="table-responsive">
                     <table class="stat-table">
                         <thead>
@@ -2166,13 +1590,13 @@
                 sorted.forEach((p, idx) => {
                     rows += `<tr>
                         <td><strong>#${idx + 1}</strong></td>
-                        <td class="player-col">${p.name} <span style="color:var(--text-muted); font-size:0.8rem;">(${p.team})</span></td>
+                        <td class="player-col">${p.name} <span style="color:var(--text-muted); font-size:0.75rem;">(${p.team})</span></td>
                         <td class="pts-cell">${p[key].toFixed(1)} ${unit}</td>
                     </tr>`;
                 });
                 return `
-                    <div style="flex: 1; min-width: 280px; background:#0f172a; padding:12px; border-radius:10px; border:1px solid var(--border-color);">
-                        <h3 style="color:var(--accent-gold); margin-bottom:8px; font-size:1rem;">${title}</h3>
+                    <div style="flex: 1; min-width: 220px; background:#0f172a; padding:10px; border-radius:8px; border:1px solid var(--border-color);">
+                        <h3 style="color:var(--accent-gold); margin-bottom:6px; font-size:0.9rem;">${title}</h3>
                         <table class="stat-table">
                             <thead><tr><th>Rank</th><th class="player-col">Player</th><th>Avg</th></tr></thead>
                             <tbody>${rows || '<tr><td colspan="3">No stats recorded yet</td></tr>'}</tbody>
@@ -2182,7 +1606,7 @@
             };
 
             container.innerHTML = `
-                <div style="display:flex; flex-wrap:wrap; gap:15px;">
+                <div style="display:flex; flex-wrap:wrap; gap:10px;">
                     ${makeLeaderTable('🔥 Points Per Game (PPG)', 'ptsAvg', 'PTS')}
                     ${makeLeaderTable('🏀 Rebounds Per Game (RPG)', 'rebAvg', 'REB')}
                     ${makeLeaderTable('🎯 Assists Per Game (APG)', 'astAvg', 'AST')}
@@ -2274,13 +1698,24 @@
             if (!onCourtPlayers[prefix]) onCourtPlayers[prefix] = {};
 
             if (activePlayers.length === 0) {
-                rowsHTML = `<tr><td colspan="25" style="padding:20px; color:var(--text-muted);">No active players selected. Enable players in roster view.</td></tr>`;
+                rowsHTML = `<tr><td colspan="25" style="padding:15px; color:var(--text-muted);">No active players selected. Enable players in roster view.</td></tr>`;
             } else {
+                // Ensure default 5 court players if unassigned
                 activePlayers.forEach((player, idx) => {
-                    const pId = player.id;
-                    if (onCourtPlayers[prefix][pId] === undefined) {
-                        onCourtPlayers[prefix][pId] = idx < 5;
+                    if (onCourtPlayers[prefix][player.id] === undefined) {
+                        onCourtPlayers[prefix][player.id] = idx < 5;
                     }
+                });
+
+                // Sort players so on-court players ALWAYS stay at the top of the list
+                const sortedPlayers = [...activePlayers].sort((a, b) => {
+                    const courtA = onCourtPlayers[prefix][a.id] ? 1 : 0;
+                    const courtB = onCourtPlayers[prefix][b.id] ? 1 : 0;
+                    return courtB - courtA;
+                });
+
+                sortedPlayers.forEach((player) => {
+                    const pId = player.id;
                     const isOnCourt = onCourtPlayers[prefix][pId];
                     const isChecked = selectedPlayerContext && selectedPlayerContext.pId === pId ? 'checked' : '';
                     const rowClass = isOnCourt ? '' : 'player-row-bench';
@@ -2312,37 +1747,47 @@
                         });
 
                         rowsHTML += `
-                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_2m">${tot2m}/${tot2a}</span></td>
-                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_3m">${tot3m}/${tot3a}</span></td>
-                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_4m">${tot4m}/${tot4a}</span></td>
-                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_ftm">${totftm}/${totfta}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_2m">${tot2m}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_3m">${tot3m}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_4m">${tot4m}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_ftm">${totftm}</span></td>
+                            <td>${makeStepper(prefix, pId, 'reb')}</td>
+                            <td>${makeStepper(prefix, pId, 'ast')}</td>
+                            <td>${makeStepper(prefix, pId, 'stl')}</td>
+                            <td>${makeStepper(prefix, pId, 'blk')}</td>
+                            <td>${makeStepper(prefix, pId, 'to')}</td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_2a">${tot2a}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_3a">${tot3a}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_4a">${tot4a}</span></td>
+                            <td><span class="stat-val" id="val_tot_${prefix}_${pId}_fta">${totfta}</span></td>
                         `;
                     } else {
                         const qLower = currentQuarterFilter.toLowerCase();
                         rowsHTML += `
-                            <td>${makeStepper(prefix, pId, `${qLower}_m2`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a2`)}</td>
-                            <td>${makeStepper(prefix, pId, `${qLower}_m3`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a3`)}</td>
-                            <td>${makeStepper(prefix, pId, `${qLower}_m4`)}</td><td>${makeStepper(prefix, pId, `${qLower}_a4`)}</td>
-                            <td>${makeStepper(prefix, pId, `${qLower}_ftm`)}</td><td>${makeStepper(prefix, pId, `${qLower}_fta`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_m2`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_m3`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_m4`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_ftm`)}</td>
+                            <td>${makeStepper(prefix, pId, 'reb')}</td>
+                            <td>${makeStepper(prefix, pId, 'ast')}</td>
+                            <td>${makeStepper(prefix, pId, 'stl')}</td>
+                            <td>${makeStepper(prefix, pId, 'blk')}</td>
+                            <td>${makeStepper(prefix, pId, 'to')}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_a2`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_a3`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_a4`)}</td>
+                            <td>${makeStepper(prefix, pId, `${qLower}_fta`)}</td>
                         `;
                     }
 
-                    rowsHTML += `
-                        <td>${makeStepper(prefix, pId, 'reb')}</td>
-                        <td>${makeStepper(prefix, pId, 'ast')}</td>
-                        <td>${makeStepper(prefix, pId, 'stl')}</td>
-                        <td>${makeStepper(prefix, pId, 'blk')}</td>
-                        <td>${makeStepper(prefix, pId, 'to')}</td>
-                        <td>${makeStepper(prefix, pId, 'pf')}</td>
-                        <td class="pts-cell" id="pts_${prefix}_${pId}">0</td>
-                    </tr>`;
+                    rowsHTML += `<td class="pts-cell" id="pts_${prefix}_${pId}">0</td></tr>`;
                 });
             }
 
             return `
                 <div class="team-header-banner">
                     <div class="team-info">
-                        <img src="${team.logo}" class="team-header-logo" onerror="this.src='https://via.placeholder.com/45'">
+                        <img src="${team.logo}" class="team-header-logo" onerror="this.src='https://via.placeholder.com/32'">
                         <h2>${team.name}</h2>
                     </div>
                     <div class="team-score-badge" id="teamScore_${prefix}">0 PTS</div>
@@ -2352,9 +1797,10 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th class="player-col">PLAYER (RADIO, COURT & NOTE)</th>
+                                <th class="player-col">PLAYER</th>
                                 ${getHeadersForFilter()}
-                                <th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>PF</th>
+                                <th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th>
+                                ${getAttemptHeadersForFilter()}
                                 <th>PTS</th>
                             </tr>
                         </thead>
@@ -2370,7 +1816,7 @@
             let rowsHTML = "";
 
             if (activePlayers.length === 0) {
-                rowsHTML = `<tr><td colspan="17" style="padding:20px; color:var(--text-muted);">No active players selected.</td></tr>`;
+                rowsHTML = `<tr><td colspan="17" style="padding:15px; color:var(--text-muted);">No active players selected.</td></tr>`;
             } else {
                 activePlayers.forEach(player => {
                     const pId = player.id;
@@ -2404,7 +1850,6 @@
                         <td>${getStatVal(prefix, pId, 'stl')}</td>
                         <td>${getStatVal(prefix, pId, 'blk')}</td>
                         <td>${getStatVal(prefix, pId, 'to')}</td>
-                        <td>${getStatVal(prefix, pId, 'pf')}</td>
                         <td class="pts-cell">${pts}</td>
                     </tr>`;
                 });
@@ -2413,7 +1858,7 @@
             return `
                 <div class="team-header-banner">
                     <div class="team-info">
-                        <img src="${team.logo}" class="team-header-logo" onerror="this.src='https://via.placeholder.com/45'">
+                        <img src="${team.logo}" class="team-header-logo" onerror="this.src='https://via.placeholder.com/32'">
                         <h2>${team.name} — OVERALL BOX SCORE</h2>
                     </div>
                     <div class="team-score-badge" id="teamScore_${prefix}Percentages">0 PTS</div>
@@ -2428,7 +1873,7 @@
                                 <th>3PT (M/A)</th><th>3FG%</th>
                                 <th>4PT (M/A)</th><th>4FG%</th>
                                 <th>FT (M/A)</th><th>FT%</th>
-                                <th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th><th>PF</th>
+                                <th>REB</th><th>AST</th><th>STL</th><th>BLK</th><th>TO</th>
                                 <th>PTS</th>
                             </tr>
                         </thead>
@@ -2440,10 +1885,19 @@
 
         function getHeadersForFilter() {
             if (currentQuarterFilter === 'ALL') {
-                return `<th>2PT (M/A)</th><th>3PT (M/A)</th><th>4PT (M/A)</th><th>FT (M/A)</th>`;
+                return `<th>2M</th><th>3M</th><th>4M</th><th>1FTM</th>`;
             } else {
                 let q = currentQuarterFilter;
-                return `<th>${q} 2M</th><th>${q} 2A</th><th>${q} 3M</th><th>${q} 3A</th><th>${q} 4M</th><th>${q} 4A</th><th>${q} FTM</th><th>${q} FTA</th>`;
+                return `<th>${q} 2M</th><th>${q} 3M</th><th>${q} 4M</th><th>${q} 1FTM</th>`;
+            }
+        }
+
+        function getAttemptHeadersForFilter() {
+            if (currentQuarterFilter === 'ALL') {
+                return `<th>2A</th><th>3A</th><th>4A</th><th>1FTA</th>`;
+            } else {
+                let q = currentQuarterFilter;
+                return `<th>${q} 2A</th><th>${q} 3A</th><th>${q} 4A</th><th>${q} 1FTA</th>`;
             }
         }
 
@@ -2483,10 +1937,14 @@
                         const el = document.getElementById(id);
                         if (el) el.textContent = txt;
                     };
-                    setVal(`val_tot_${prefix}_${p.id}_2m`, `${tot2m}/${tot2a}`);
-                    setVal(`val_tot_${prefix}_${p.id}_3m`, `${tot3m}/${tot3a}`);
-                    setVal(`val_tot_${prefix}_${p.id}_4m`, `${tot4m}/${tot4a}`);
-                    setVal(`val_tot_${prefix}_${p.id}_ftm`, `${totftm}/${totfta}`);
+                    setVal(`val_tot_${prefix}_${p.id}_2m`, `${tot2m}`);
+                    setVal(`val_tot_${prefix}_${p.id}_3m`, `${tot3m}`);
+                    setVal(`val_tot_${prefix}_${p.id}_4m`, `${tot4m}`);
+                    setVal(`val_tot_${prefix}_${p.id}_ftm`, `${totftm}`);
+                    setVal(`val_tot_${prefix}_${p.id}_2a`, `${tot2a}`);
+                    setVal(`val_tot_${prefix}_${p.id}_3a`, `${tot3a}`);
+                    setVal(`val_tot_${prefix}_${p.id}_4a`, `${tot4a}`);
+                    setVal(`val_tot_${prefix}_${p.id}_fta`, `${totfta}`);
                 }
             });
 
