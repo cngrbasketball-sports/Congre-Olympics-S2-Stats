@@ -15,6 +15,22 @@
             --text-muted: #94a3b8;
             --danger-red: #ef4444;
             --success-green: #22c55e;
+            --table-even: #172033;
+            --header-bg: #0f172a;
+        }
+
+        body.day-mode {
+            --primary-bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --accent-gold: #d97706;
+            --accent-blue: #2563eb;
+            --border-color: #cbd5e1;
+            --text-light: #0f172a;
+            --text-muted: #64748b;
+            --danger-red: #dc2626;
+            --success-green: #16a34a;
+            --table-even: #f8fafc;
+            --header-bg: #e2e8f0;
         }
 
         @keyframes yellowFlash {
@@ -40,6 +56,7 @@
             padding: 8px;
             font-size: 13px;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         /* RESPONSIVE HEADER */
@@ -47,11 +64,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: linear-gradient(135deg, #0f172a, #1e293b);
+            background: linear-gradient(135deg, var(--header-bg), var(--card-bg));
             padding: 8px 12px;
             border-radius: 10px;
             border: 2px solid var(--accent-gold);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
             margin-bottom: 8px;
             flex-wrap: wrap;
             gap: 8px;
@@ -85,9 +102,25 @@
             margin-top: 1px;
         }
 
+        .theme-toggle-btn {
+            background: var(--card-bg);
+            color: var(--accent-gold);
+            border: 1.5px solid var(--accent-gold);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.82rem;
+            white-space: nowrap;
+        }
+
+        .theme-toggle-btn:active {
+            opacity: 0.8;
+        }
+
         /* LIVE QUARTER SCOREBOARD BOX */
         .live-scoreboard-box {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
+            background: linear-gradient(135deg, var(--card-bg), var(--header-bg));
             border: 1.5px solid var(--accent-gold);
             border-radius: 8px;
             padding: 8px 12px;
@@ -97,7 +130,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
         .team-score-summary {
@@ -122,7 +155,7 @@
         }
 
         .quarter-breakdown span {
-            background: #0f172a;
+            background: var(--header-bg);
             padding: 1px 5px;
             border-radius: 4px;
             border: 1px solid var(--border-color);
@@ -131,12 +164,12 @@
         .running-total-score {
             font-size: 1.3rem;
             font-weight: 900;
-            color: #4ade80;
+            color: var(--success-green);
         }
 
         /* HOTKEY INSTRUCTION BANNER */
         .hotkey-banner {
-            background: #0f172a;
+            background: var(--header-bg);
             border: 1.5px solid var(--accent-blue);
             padding: 6px 12px;
             border-radius: 8px;
@@ -155,7 +188,7 @@
             flex-wrap: nowrap;
             overflow-x: auto;
             gap: 6px;
-            background: #0f172a;
+            background: var(--header-bg);
             padding: 6px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
@@ -172,7 +205,7 @@
         }
 
         .nav-btn {
-            background: #1e293b;
+            background: var(--card-bg);
             color: var(--text-light);
             border: 1px solid var(--border-color);
             padding: 6px 10px;
@@ -207,7 +240,7 @@
 
         .nav-btn.matchup-btn.active {
             background: #2563eb;
-            box-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
         }
 
         .tab-icon {
@@ -231,7 +264,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #0f172a;
+            background: var(--header-bg);
             padding: 8px 12px;
             border-radius: 8px;
             margin-bottom: 10px;
@@ -250,8 +283,8 @@
 
         .team-select-box select {
             width: 100%;
-            background: #1e293b;
-            color: #fff;
+            background: var(--card-bg);
+            color: var(--text-light);
             padding: 5px 8px;
             border: 1.5px solid var(--accent-gold);
             border-radius: 6px;
@@ -264,7 +297,7 @@
             font-weight: 900;
             color: var(--accent-gold);
             padding: 2px 10px;
-            background: #1e293b;
+            background: var(--card-bg);
             border-radius: 6px;
             border: 1px solid var(--border-color);
             margin: 0 auto;
@@ -276,7 +309,7 @@
             align-items: center;
             justify-content: space-between;
             gap: 6px;
-            background: #0f172a;
+            background: var(--header-bg);
             padding: 6px 10px;
             border-radius: 8px;
             margin-bottom: 10px;
@@ -293,8 +326,8 @@
         }
 
         .q-btn {
-            background: #1e293b;
-            color: #fff;
+            background: var(--card-bg);
+            color: var(--text-light);
             border: 1px solid var(--border-color);
             padding: 5px 10px;
             border-radius: 5px;
@@ -323,14 +356,14 @@
             border-radius: 10px;
             padding: 8px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .team-header-banner {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #0f172a;
+            background: var(--header-bg);
             padding: 6px 10px;
             border-radius: 6px;
             margin-bottom: 8px;
@@ -360,8 +393,8 @@
         .team-score-badge {
             font-size: 1.2rem;
             font-weight: 900;
-            color: #4ade80;
-            background: #1e293b;
+            color: var(--success-green);
+            background: var(--card-bg);
             padding: 2px 10px;
             border-radius: 6px;
             border: 1px solid var(--border-color);
@@ -387,7 +420,7 @@
         }
 
         table.stat-table th {
-            background-color: #0f172a;
+            background-color: var(--header-bg);
             color: var(--accent-gold);
             font-weight: bold;
             font-size: 0.75rem;
@@ -398,12 +431,12 @@
         }
 
         table.stat-table tr:nth-child(even) {
-            background-color: #172033;
+            background-color: var(--table-even);
         }
 
         .player-row-bench {
-            opacity: 0.35;
-            background-color: #0f172a !important;
+            opacity: 0.4;
+            background-color: var(--header-bg) !important;
         }
         
         .player-row-bench .stepper-unit, 
@@ -419,7 +452,7 @@
             font-size: 0.82rem;
             position: sticky;
             left: 0;
-            background: #1e293b;
+            background: var(--card-bg);
             z-index: 1;
             display: flex;
             align-items: center;
@@ -427,7 +460,7 @@
         }
 
         table.stat-table tr:nth-child(even) .player-col {
-            background: #172033;
+            background: var(--table-even);
         }
 
         .player-col input[type="radio"] {
@@ -443,7 +476,7 @@
             align-items: center;
             gap: 2px;
             font-size: 0.68rem;
-            background: #0f172a;
+            background: var(--header-bg);
             padding: 1px 4px;
             border-radius: 3px;
             border: 1px solid var(--border-color);
@@ -461,8 +494,8 @@
 
         .player-note-input {
             width: 55px;
-            background: #0f172a;
-            color: #38bdf8;
+            background: var(--header-bg);
+            color: var(--accent-blue);
             border: 1px solid var(--border-color);
             border-radius: 3px;
             padding: 1px 2px;
@@ -476,10 +509,10 @@
             display: inline-flex;
             align-items: center;
             gap: 2px;
-            background: #0f172a;
+            background: var(--header-bg);
             padding: 1px 3px;
             border-radius: 4px;
-            border: 1px solid #334155;
+            border: 1px solid var(--border-color);
             justify-content: center;
         }
 
@@ -488,7 +521,7 @@
             text-align: center;
             font-size: 0.88rem;
             font-weight: 800;
-            color: #fff;
+            color: var(--text-light);
         }
 
         .step-btns {
@@ -498,8 +531,8 @@
         }
 
         .step-btn {
-            background: #334155;
-            color: #fff;
+            background: var(--border-color);
+            color: var(--text-light);
             border: none;
             width: 15px;
             height: 11px;
@@ -519,7 +552,7 @@
         }
 
         .step-btn.dn {
-            background: #1e293b;
+            background: var(--card-bg);
             color: var(--text-muted);
         }
 
@@ -529,13 +562,13 @@
         }
 
         .pts-cell {
-            color: #4ade80 !important;
+            color: var(--success-green) !important;
             font-size: 0.95rem;
             font-weight: 900;
         }
 
         .pct-cell {
-            color: #38bdf8;
+            color: var(--accent-blue);
             font-weight: 800;
             font-size: 0.82rem;
         }
@@ -570,7 +603,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: #0f172a;
+            background: var(--header-bg);
             padding: 8px 10px;
             border-radius: 6px;
             border: 1px solid var(--border-color);
@@ -607,7 +640,7 @@
 
         .action-btn {
             background: var(--card-bg);
-            color: #fff;
+            color: var(--text-light);
             border: 1px solid var(--border-color);
             padding: 6px 12px;
             border-radius: 6px;
@@ -623,18 +656,18 @@
 
         .action-btn.save-match-btn {
             background: var(--success-green);
-            color: #000;
-            border-color: #16a34a;
+            color: #fff;
+            border-color: var(--success-green);
         }
 
         .action-btn.reset-match-btn {
             background: var(--danger-red);
             color: #fff;
-            border-color: #dc2626;
+            border-color: var(--danger-red);
         }
 
         .archive-selector {
-            background: #1e293b;
+            background: var(--card-bg);
             color: var(--accent-gold);
             border: 1.5px solid var(--accent-gold);
             padding: 6px 10px;
@@ -659,14 +692,14 @@
         }
 
         @media print {
-            body { background: #fff; color: #000; }
-            .nav-tabs, .matchup-selector-bar, .quarter-filter-bar, .actions-bar, .step-btns, .hotkey-banner, input[type="radio"], input[type="checkbox"] { display: none !important; }
+            body { background: #fff !important; color: #000 !important; }
+            .nav-tabs, .matchup-selector-bar, .quarter-filter-bar, .actions-bar, .step-btns, .hotkey-banner, .theme-toggle-btn, input[type="radio"], input[type="checkbox"] { display: none !important; }
             .team-card { background: #fff; border: 1px solid #000; }
             table.stat-table th { background: #eee !important; color: #000 !important; }
         }
     </style>
 </head>
-<body>
+<body id="appBody">
 
     <header class="app-header">
         <img src="840069523_1617887930033821_6965812852497925699_n.jpg" class="header-logo" onerror="this.src='https://via.placeholder.com/65/0f172a/f59e0b?text=CBL'">
@@ -674,7 +707,10 @@
             <h1>Congre Basketball Olympics</h1>
             <p>Season 2 — Live Match Stat Tracker</p>
         </div>
-        <img src="839859719_930183739880776_4844381458750892179_n.jpg" class="header-logo" onerror="this.src='https://via.placeholder.com/65/0f172a/f59e0b?text=S2'">
+        <div style="display:flex; align-items:center; gap:8px;">
+            <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()">🌙 Night Mode</button>
+            <img src="839859719_930183739880776_4844381458750892179_n.jpg" class="header-logo" onerror="this.src='https://via.placeholder.com/65/0f172a/f59e0b?text=S2'">
+        </div>
     </header>
 
     <!-- LIVE SEPARATE SCOREBOARD BOX -->
@@ -704,9 +740,9 @@
 
     <!-- HOTKEY INSTRUCTION BANNER -->
     <div class="hotkey-banner">
-        <span style="color:var(--accent-gold); font-weight:bold;">⚡ ACTIVE PLAYER: <span id="activePlayerIndicator" style="color:#38bdf8;">None Selected</span></span>
+        <span style="color:var(--accent-gold); font-weight:bold;">⚡ ACTIVE PLAYER: <span id="activePlayerIndicator" style="color:var(--accent-blue);">None Selected</span></span>
         <span style="color:var(--text-light); font-size:0.78rem;">
-            <strong>[2]</strong> 2M | <strong>[3]</strong> 3M | <strong>[4]</strong> 4M | <strong>[1]</strong> 1FTM | <strong>[R]</strong> REB | <strong>[A]</strong> AST | <strong>[S]</strong> STL | <strong>[B]</strong> BLK | <strong>[T]</strong> TO | <strong>[Q]</strong> 2A | <strong>[W]</strong> 3A | <strong>[E]</strong> 4A | <strong>[Z]</strong> 1FTA
+            <strong>[2]</strong> 2M | <strong>[3]</strong> 3M | <strong>[4]</strong> 4M | <strong>[1]</strong> 1FTM | <strong>[R]</strong> REB | <strong>[A]</strong> AST | <strong>[S]</strong> STL | <strong>[B]</strong> BLK | <strong>[T]</strong> TO | <strong>[Q]</strong> 1FTA | <strong>[W]</strong> 2A | <strong>[E]</strong> 3A | <strong>[Z]</strong> 4A
         </span>
     </div>
 
@@ -727,8 +763,8 @@
     <div class="actions-bar">
         <button class="action-btn save-match-btn" onclick="saveCurrentMatchToArchive()">💾 Save Match to Archive</button>
         <button class="action-btn reset-match-btn" onclick="resetLiveMatchStats()">🔄 Reset Live Stats to 0</button>
-        <button class="action-btn" style="background:#3b82f6;" onclick="exportArchiveJSON()">📤 Export Archive (JSON)</button>
-        <label class="action-btn" style="background:#6366f1; cursor:pointer; margin:0;">
+        <button class="action-btn" style="background:var(--accent-blue); color:#fff;" onclick="exportArchiveJSON()">📤 Export Archive (JSON)</button>
+        <label class="action-btn" style="background:#6366f1; color:#fff; cursor:pointer; margin:0;">
             📥 Import Archive <input type="file" id="importFile" accept=".json" style="display:none" onchange="importArchiveJSON(event)">
         </label>
         <button class="action-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
@@ -791,6 +827,7 @@
     <script>
         let currentQuarterFilter = 'ALL';
         let selectedPlayerContext = null; 
+        let currentTheme = 'night'; // default night mode
         
         let matchArchive = [
           {
@@ -1095,6 +1132,20 @@
             setupKeyboardHotkeys();
         });
 
+        function toggleTheme() {
+            currentTheme = currentTheme === 'night' ? 'day' : 'night';
+            const body = document.getElementById("appBody");
+            const btn = document.getElementById("themeToggleBtn");
+            if (currentTheme === 'day') {
+                body.classList.add("day-mode");
+                btn.textContent = "☀️ Day Mode";
+            } else {
+                body.classList.remove("day-mode");
+                btn.textContent = "🌙 Night Mode";
+            }
+            saveToLocalStorage();
+        }
+
         function initOnCourtDefaults() {
             ['home', 'away'].forEach(prefix => {
                 if (!onCourtPlayers[prefix]) onCourtPlayers[prefix] = {};
@@ -1118,7 +1169,8 @@
                 playerNotes,
                 homeTeam: document.getElementById("homeTeamSelect")?.value,
                 awayTeam: document.getElementById("awayTeamSelect")?.value,
-                selectedPlayerContext
+                selectedPlayerContext,
+                currentTheme
             };
             localStorage.setItem("cbl_statkeeper_state", JSON.stringify(state));
         }
@@ -1135,6 +1187,13 @@
                     if (parsed.onCourtPlayers) Object.assign(onCourtPlayers, parsed.onCourtPlayers);
                     if (parsed.playerNotes) Object.assign(playerNotes, parsed.playerNotes);
                     if (parsed.selectedPlayerContext) selectedPlayerContext = parsed.selectedPlayerContext;
+                    if (parsed.currentTheme) {
+                        currentTheme = parsed.currentTheme;
+                        if (currentTheme === 'day') {
+                            document.getElementById("appBody").classList.add("day-mode");
+                            document.getElementById("themeToggleBtn").textContent = "☀️ Day Mode";
+                        }
+                    }
                 }
             } catch (e) {
                 console.error("Error loading autosave state:", e);
@@ -1171,7 +1230,7 @@
                 const indicator = document.getElementById("activePlayerIndicator");
                 if (indicator) {
                     indicator.textContent = "None Selected";
-                    indicator.style.color = "#38bdf8";
+                    indicator.style.color = "var(--accent-blue)";
                 }
                 saveToLocalStorage();
                 renderMatchup();
@@ -1196,7 +1255,7 @@
             if (!onCourtPlayers[prefix][pId] && selectedPlayerContext && selectedPlayerContext.pId === pId) {
                 selectedPlayerContext = null;
                 document.getElementById("activePlayerIndicator").textContent = "None Selected";
-                document.getElementById("activePlayerIndicator").style.color = "#38bdf8";
+                document.getElementById("activePlayerIndicator").style.color = "var(--accent-blue)";
             }
             
             renderMatchup();
@@ -1218,9 +1277,8 @@
             const indicator = document.getElementById("activePlayerIndicator");
             if (indicator) {
                 indicator.textContent = playerName;
-                indicator.style.color = "#4ade80";
+                indicator.style.color = "var(--success-green)";
             }
-            // Defocus inputs/radios so key presses immediately trigger global hotkeys without needing extra clicks
             if (document.activeElement) {
                 document.activeElement.blur();
             }
@@ -1268,16 +1326,16 @@
                     stepStat(prefix, pId, 'to', 1);
                 } else if (key === 'q') {
                     e.preventDefault();
-                    stepStat(prefix, pId, `${qKey}_a2`, 1);
+                    stepStat(prefix, pId, `${qKey}_fta`, 1);
                 } else if (key === 'w') {
                     e.preventDefault();
-                    stepStat(prefix, pId, `${qKey}_a3`, 1);
+                    stepStat(prefix, pId, `${qKey}_a2`, 1);
                 } else if (key === 'e') {
                     e.preventDefault();
-                    stepStat(prefix, pId, `${qKey}_a4`, 1);
+                    stepStat(prefix, pId, `${qKey}_a3`, 1);
                 } else if (key === 'z') {
                     e.preventDefault();
-                    stepStat(prefix, pId, `${qKey}_fta`, 1);
+                    stepStat(prefix, pId, `${qKey}_a4`, 1);
                 }
             });
         }
@@ -1516,7 +1574,7 @@
                         </thead>
                         <tbody>${rowsHTML}</tbody>
                         <tfoot>
-                            <tr style="background:#0f172a; color:var(--accent-gold);">
+                            <tr style="background:var(--header-bg); color:var(--accent-gold);">
                                 <td colspan="2" class="player-col">TEAM TOTALS</td>
                                 <td>${totals.m2}/${totals.a2}</td><td class="pct-cell">${tPct2}</td>
                                 <td>${totals.m3}/${totals.a3}</td><td class="pct-cell">${tPct3}</td>
@@ -1525,7 +1583,7 @@
                                 <td>${totals.reb}</td><td>${totals.ast}</td><td>${totals.stl}</td><td>${totals.blk}</td><td>${totals.to}</td><td>${totals.pf}</td>
                                 <td class="pts-cell">${totals.pts}</td>
                             </tr>
-                            <tr style="background:#131c31; color:#38bdf8;">
+                            <tr style="background:var(--card-bg); color:var(--accent-blue);">
                                 <td colspan="2" class="player-col">TEAM PER-GAME AVG</td>
                                 <td colspan="2">${avg(totals.m2)}/${avg(totals.a2)}</td>
                                 <td colspan="2">${avg(totals.m3)}/${avg(totals.a3)}</td>
@@ -1595,7 +1653,7 @@
                     </tr>`;
                 });
                 return `
-                    <div style="flex: 1; min-width: 220px; background:#0f172a; padding:10px; border-radius:8px; border:1px solid var(--border-color);">
+                    <div style="flex: 1; min-width: 220px; background:var(--header-bg); padding:10px; border-radius:8px; border:1px solid var(--border-color);">
                         <h3 style="color:var(--accent-gold); margin-bottom:6px; font-size:0.9rem;">${title}</h3>
                         <table class="stat-table">
                             <thead><tr><th>Rank</th><th class="player-col">Player</th><th>Avg</th></tr></thead>
@@ -1700,14 +1758,12 @@
             if (activePlayers.length === 0) {
                 rowsHTML = `<tr><td colspan="25" style="padding:15px; color:var(--text-muted);">No active players selected. Enable players in roster view.</td></tr>`;
             } else {
-                // Ensure default 5 court players if unassigned
                 activePlayers.forEach((player, idx) => {
                     if (onCourtPlayers[prefix][player.id] === undefined) {
                         onCourtPlayers[prefix][player.id] = idx < 5;
                     }
                 });
 
-                // Sort players so on-court players ALWAYS stay at the top of the list
                 const sortedPlayers = [...activePlayers].sort((a, b) => {
                     const courtA = onCourtPlayers[prefix][a.id] ? 1 : 0;
                     const courtB = onCourtPlayers[prefix][b.id] ? 1 : 0;
